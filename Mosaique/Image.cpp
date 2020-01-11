@@ -41,7 +41,8 @@ Image& Image::operator=(Image im)
 //Save the given image on the disk with a certain quality of detail
 void Image::save(const string fileName, int quality) const
 {
-	//TODO: save image
+	FREE_IMAGE_FORMAT format = FreeImage_GetFileType(filename, 0);
+	FreeImage_Save()
 }
 
 //Load the image given by the filename
@@ -69,7 +70,7 @@ int Image::loadFromFile(char* filename)
 		return 0;
 	}
 
-	//Set iamge dimensions
+	//Set image dimensions
 	m_height = FreeImage_GetHeight(bitmap);
 	m_width = FreeImage_GetWidth(bitmap);
 	m_pixels.resize(m_height);
