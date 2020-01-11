@@ -39,10 +39,25 @@ Image& Image::operator=(Image im)
 }
 
 //Save the given image on the disk with a certain quality of detail
-void Image::save(const string fileName, int quality) const
+void Image::save(const char* filename, FREE_IMAGE_FORMAT format) const
 {
-	FREE_IMAGE_FORMAT format = FreeImage_GetFileType(filename, 0);
-	FreeImage_Save()
+	FIBITMAP* bitmap = FreeImage_Allocate(m_width, m_height, 32);
+
+	//Set pixel array
+	for (int i = 0; i < m_height; i++)
+	{
+		for (int j = 0; j < m_width; j++) 
+		{	
+			RGBQUAD color;
+			color.rgbRed = m_pixels[i][j].r;
+			color.rgbGreen = m_pixels[i][j].g;
+			color.rgbBlue = m_pixels[i][j].b;
+			
+			FreeImage_SetPixelColor(bitmap, i, j, &color);
+		}
+	}
+
+	FreeImage_Save(format, bitmap, filename);
 }
 
 //Load the image given by the filename
@@ -55,7 +70,6 @@ int Image::loadFromFile(char* filename)
 		cerr << "Format de fichier invalide !" << endl;
 		return 0;
 	}
-		
 
 	//Load image
 	FIBITMAP* bitmap = FreeImage_Load(format, filename);
