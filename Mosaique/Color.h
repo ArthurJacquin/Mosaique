@@ -2,8 +2,10 @@
 
 class Color {
 public:
-	float r, g, b;
+	float x, y, z;
 
-	Color() :r(0), g(0), b(0) {};
-	Color(float r, float g, float b) :r(r), g(g), b(b) {};
+	Color() :x(0), y(0), z(0) {};
+	Color(float r, float g, float b) :x(r), y(g), z(b) {};
+
+	Color& operator=(Color b);
 };

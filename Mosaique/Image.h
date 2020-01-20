@@ -6,12 +6,19 @@
 
 using namespace std;
 
-class Image {
+enum ImageType {
+	RGB,
+	HSV
+};
 
-	FREE_IMAGE_FORMAT baseFormat; //format de l'image de base
+class Image {
+	
+
+	FREE_IMAGE_FORMAT baseFormat; //Base image format
 	vector<vector<Color>> m_pixels; //Array of RGB pixels
 	int m_width; //Width
 	int m_height; //Height
+	ImageType m_colorType; // Image color type (RGB, HSV, ...)
 
 public:
 	Image(const char* filename);
@@ -27,6 +34,9 @@ public:
 	//Load/save functions (using FreeImage)
 	void save(const char* fileName, FREE_IMAGE_FORMAT format) const;
 	int loadFromFile(char* filename);
+	
+	//Transformation functions
+	void convert(ImageType type);
 
 	//Getters
 	int getHeight() const { return m_height; }

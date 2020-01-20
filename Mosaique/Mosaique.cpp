@@ -7,6 +7,8 @@ int main()
 {
 	string filename = "lenna.jpeg";
 	Image im (filename.c_str());
+	
+	im.convert(HSV);
 	//TODO: Faire des trucs sur l'image
 
 	im.save("save.jpg", im.getBaseFormat());

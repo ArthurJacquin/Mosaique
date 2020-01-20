@@ -2,19 +2,22 @@
 #include <stdio.h>
 #include <setjmp.h>
 #include <iostream>
+#include <algorithm>
 
 //Create an image from a file
 Image::Image(const char* filename)
 {
 	this->loadFromFile((char*)filename);
+	this->m_colorType = RGB;
 }
 
 //Constructor by copy
 Image::Image(const Image& im)
 {
-	m_pixels = im.getPixels();
-	m_height = im.getHeight();
-	m_width = im.getWidth();
+	m_pixels = im.m_pixels;
+	m_height = im.m_height;
+	m_width = im.m_width;
+	m_colorType = im.m_colorType;
 }
 
 Image::~Image()
@@ -49,9 +52,9 @@ void Image::save(const char* filename, FREE_IMAGE_FORMAT format) const
 		for (int j = 0; j < m_width; j++) 
 		{	
 			RGBQUAD color;
-			color.rgbRed = m_pixels[i][j].r;
-			color.rgbGreen = m_pixels[i][j].g;
-			color.rgbBlue = m_pixels[i][j].b;
+			color.rgbRed = m_pixels[i][j].x;
+			color.rgbGreen = m_pixels[i][j].y;
+			color.rgbBlue = m_pixels[i][j].z;
 			
 			FreeImage_SetPixelColor(bitmap, i, j, &color);
 		}
@@ -102,4 +105,77 @@ int Image::loadFromFile(char* filename)
 	}
 
 	return 0;
+}
+
+void Image::convert(ImageType type)
+{
+	switch (type)
+	{
+	//RGB to HSV
+	case HSV:
+		//Don't convert if already in HSV
+		if (this->m_colorType == HSV)
+			return;
+
+		for (int i = 0; i < m_height - 1; ++i) 
+		{
+			for (int j = 0; j < m_width - 1; ++j)
+			{
+				float R = m_pixels[i][j].x / 255;
+				float G = m_pixels[i][j].y / 255;
+				float B = m_pixels[i][j].z / 255;
+
+				float mini = min(min(R, G), B);
+				float maxi = max(max(R, G), B);
+				
+				// Hue color in deggrees [0, 360]
+				float H;
+				if (maxi == mini)
+					H = 0;
+				else if (maxi == R)
+					H = (int)(60 * ((G - B) / (maxi - mini)) + 360) % 360;
+				else if (maxi == G)
+					H = 60 * ((B - R) / (maxi - mini)) + 120; // A vérifier
+				else
+					H = 60 * ((R - G) / (maxi - mini)) + 240;
+
+				if (H < 0)
+					H += 360;
+
+				// Value [0, 1]
+				float V = maxi; 
+
+				// Saturation [0, 1]
+				float S; 
+				if (V == 0)
+					S = 0;
+				else
+					S = (maxi - mini) / maxi;
+
+				Color hsvColor(H, S, V);
+
+				m_pixels[i][j] = hsvColor;
+			}
+		}
+
+		this->m_colorType = HSV;
+
+		break;
+
+	//HSV to RGB
+	case RGB:
+		if (this->m_colorType == RGB)
+			return;
+		
+
+		//TODO: convert to RGB
+
+
+		this->m_colorType = RGB;
+
+		break;
+
+	default:
+		break;
+	}
 }
