@@ -117,9 +117,9 @@ void Image::convert(ImageType type)
 		if (this->m_colorType == HSV)
 			return;
 
-		for (int i = 0; i < m_height - 1; ++i) 
+		for (int i = 0; i < m_height; ++i) 
 		{
-			for (int j = 0; j < m_width - 1; ++j)
+			for (int j = 0; j < m_width; ++j)
 			{
 				float R = m_pixels[i][j].x / 255;
 				float G = m_pixels[i][j].y / 255;
@@ -167,9 +167,58 @@ void Image::convert(ImageType type)
 		if (this->m_colorType == RGB)
 			return;
 		
+		for (int i = 0; i < m_height; ++i)
+		{
+			for (int j = 0; j < m_width; ++j)
+			{
+				float H = m_pixels[i][j].x;
+				float S = m_pixels[i][j].y;
+				float V = m_pixels[i][j].z * 255;
 
-		//TODO: convert to RGB
+				int t = (int)(H / 60) % 6;
+				float f = H / 60 - t;
 
+				//+ 0.5 to round to the closest int 
+				int l = V * (1 - S) + 0.5; 
+				int m = V * (1 - f * S) + 0.5;
+				int n = V * (1 - (1 - f) * S) + 0.5;
+
+				Color* rgbColor;
+
+				switch (t)
+				{
+				case 0:
+					rgbColor = new Color(V, n, l);
+					break;
+
+				case 1:
+					rgbColor = new Color(m, V, l);
+					break;
+
+				case 2:
+					rgbColor = new Color(l, V, n);
+					break;
+
+				case 3:
+					rgbColor = new Color(l, m, V);
+					break;
+
+				case 4:
+					rgbColor = new Color(n, l, V);
+					break;
+
+				case 5:
+					rgbColor = new Color(V, l, m);
+					break;
+
+				default:
+					rgbColor = new Color(0, 0, 0);
+					break;
+				}
+
+				m_pixels[i][j] = *rgbColor;
+			}
+		}
 
 		this->m_colorType = RGB;
 

@@ -11,6 +11,8 @@ int main()
 	im.convert(HSV);
 	//TODO: Faire des trucs sur l'image
 
+	im.convert(RGB);
+
 	im.save("save.jpg", im.getBaseFormat());
 	return 0;
 }
