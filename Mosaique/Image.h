@@ -28,7 +28,8 @@ public:
 	~Image();
 
 	//Operators
-	Color& operator()(const int x, const int y); //Acces the pixel (x, y)
+	Color operator()(const int x, const int y) const; //Acces the pixel (x, y)
+	Color& operator()(const int x, const int y);
 	Image& operator=(Image b); 
 	
 	//Load/save functions (using FreeImage)
@@ -42,5 +43,10 @@ public:
 	int getHeight() const { return m_height; }
 	int getWidth() const { return m_width; }
 	vector<vector<Color>> getPixels() const { return m_pixels; }
-	FREE_IMAGE_FORMAT getBaseFormat() { return baseFormat; }
+	FREE_IMAGE_FORMAT getBaseFormat() const { return baseFormat; }
+
+	//Setters
+	void setHeight(int height) { m_height = height; }
+	void setWidth(int width) { m_width = width; }
+
 };

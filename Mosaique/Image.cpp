@@ -24,7 +24,12 @@ Image::~Image()
 {
 }
 
-Color& Image::operator()(int x, int y)
+Color Image::operator()(const int x, const int y) const
+{
+	return m_pixels[x][y];
+}
+
+Color& Image::operator()(const int x, const int y)
 {
 	return m_pixels[x][y];
 }
@@ -135,7 +140,7 @@ void Image::convert(ImageType type)
 				else if (maxi == R)
 					H = (int)(60 * ((G - B) / (maxi - mini)) + 360) % 360;
 				else if (maxi == G)
-					H = 60 * ((B - R) / (maxi - mini)) + 120; // A vérifier
+					H = 60 * ((B - R) / (maxi - mini)) + 120; // TODO :A vérifier
 				else
 					H = 60 * ((R - G) / (maxi - mini)) + 240;
 
