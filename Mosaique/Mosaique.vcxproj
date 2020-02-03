@@ -27,6 +27,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Crop.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Similirate.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

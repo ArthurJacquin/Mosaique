@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Color {
 public:
@@ -8,4 +9,7 @@ public:
 	Color(float r, float g, float b) :x(r), y(g), z(b) {};
 
 	Color& operator=(Color b);
+	Color& operator-(Color b);
+
+	friend std::ostream& operator<<(std::ostream&, const Color& obj);
 };
