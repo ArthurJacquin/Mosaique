@@ -17,3 +17,20 @@ void resizeCrop(Image& image, int factor)
 	image.setHeight(dimensionY);
 	image.setWidth(dimensionX);
 }
+
+void crop(Image& image)
+{
+	int xDepart = image.getWidth() / 4;
+	int yDepart = image.getHeight() / 4;
+
+	for (int x = xDepart; x < int(image.getWidth() - xDepart); x++)
+	{
+		for (int y = yDepart; y < int(image.getHeight() - yDepart); y++)
+		{
+			image(x, y) = image(x, y);
+		}
+	}
+
+	image.setWidth(image.getWidth() - xDepart);
+	image.setHeight(image.getHeight() - yDepart);
+}

@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Crop.h" />
     <ClInclude Include="Image.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -11,7 +11,7 @@ int main()
 	
 	im.convert(HSV);
 	//TODO: Faire des trucs sur l'image
-	resizeCrop(im, 10);
+	crop(im);
 	im.convert(RGB);
 
 	im.save("save.jpg", im.getBaseFormat());
