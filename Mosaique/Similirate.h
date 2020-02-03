@@ -41,3 +41,43 @@ int diffVal(Image im, Image imCompare)
 	return somme;
 
 }
+
+int diffHisto(Image im1, Image im2) 
+{
+	int dist = 0;
+	
+
+	return dist;
+}
+
+vector<vector<int>> calculateHistogram(Image im) 
+{
+	vector<vector<int>> hist;
+	hist.resize(3);
+
+	for (int i = 0; i < 3; i++) 
+	{
+		hist[i].resize(255);
+		for (int x = 0; x < im.getWidth(); x++) 
+		{
+			for (int y = 0; y < im.getHeight(); y++)
+			{
+				switch(i) 
+				{
+				case 0:
+					hist[i][im(x, y).x] += 1;
+					break;
+				case 1:
+					hist[i][im(x, y).y] += 1;
+					break;
+				case 2:
+					hist[i][im(x, y).z] += 1;
+					break;
+				}
+
+			}
+		}
+	}
+
+	return hist;
+}
