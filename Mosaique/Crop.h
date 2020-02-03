@@ -35,7 +35,7 @@ void crop(Image& image)
 	image.setHeight(image.getHeight() - yDepart);
 }
 
-void cropHalf(Image &image) 
+void cropTopLeft(Image &image) 
 {
 	int width = image.getWidth() / 2;
 	int height = image.getHeight() / 2;
@@ -45,6 +45,23 @@ void cropHalf(Image &image)
 		for (int j = height; j < height; j++) 
 		{
 			image(i, j) = image(i, j);
+		}
+	}
+
+	image.setWidth(width);
+	image.setHeight(height);
+}
+
+void cropCentered(Image& image, int size) 
+{
+	int width = size * 2;
+	int height = size * 2;
+
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = height; j < height; j++)
+		{
+			image(i, j) = image(i + size, j + size);
 		}
 	}
 
