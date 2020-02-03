@@ -34,3 +34,20 @@ void crop(Image& image)
 	image.setWidth(image.getWidth() - xDepart);
 	image.setHeight(image.getHeight() - yDepart);
 }
+
+void cropHalf(Image &image) 
+{
+	int width = image.getWidth() / 2;
+	int height = image.getHeight() / 2;
+
+	for (int i = 0; i < width; i++) 
+	{
+		for (int j = height; j < height; j++) 
+		{
+			image(i, j) = image(i, j);
+		}
+	}
+
+	image.setWidth(width);
+	image.setHeight(height);
+}
