@@ -43,7 +43,7 @@ int diffVal(Image im, Image imCompare)
 
 }
 
-int diffValMoyenne(Image im, Image imCompare)
+int diffValWithMoy(Image im, Image imCompare)
 {
 	int moy = 0;
 	int diff[] = { 0, 0, 0 };
