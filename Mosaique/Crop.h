@@ -18,7 +18,7 @@ void resizeCrop(Image& image, int factor)
 	image.setWidth(dimensionX);
 }
 
-void crop(Image& image)
+void cropBasic(Image& image)
 {
 	int xDepart = image.getWidth() / 4;
 	int yDepart = image.getHeight() / 4;

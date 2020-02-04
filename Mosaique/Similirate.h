@@ -5,10 +5,9 @@
 int diffVal(Image im, Image imCompare)
 {
 	int somme = 0;
-	Color diff(0.f, 0.f, 0.f);
+	int diff[] = { 0, 0, 0 };
 	int heightMax = 0;
 	int widthMax = 0;
-
 
 	if (im.getHeight() > imCompare.getHeight())
 	{
@@ -28,16 +27,19 @@ int diffVal(Image im, Image imCompare)
 		widthMax = imCompare.getWidth();
 	}
 
-
 	for (int x = 0; x < widthMax; x++)
 	{
 		for (int y = 0; y < heightMax; y++)
 		{
-			diff = im(x, y) - imCompare(x, y);
+			diff[0] = im(x, y).x - imCompare(x, y).x;
+			diff[1] = im(x, y).y - imCompare(x, y).y;
+			diff[2] = im(x, y).z - imCompare(x, y).z;
+			somme = diff[0] + diff[1] + diff[2];
 		}
 	}
 
-	std::cerr << diff << std::endl;
+	std::cerr << "diffVal() : " << diff[0] << ", " << diff[1] << ", " << diff[2] << std::endl;
+	std::cerr << "diffVal() : " << somme;
 	return somme;
 
 }
