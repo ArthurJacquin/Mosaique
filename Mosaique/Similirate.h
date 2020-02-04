@@ -11,20 +11,20 @@ int diffVal(Image im, Image imCompare)
 
 	if (im.getHeight() > imCompare.getHeight())
 	{
-		heightMax = im.getHeight();
+		heightMax = imCompare.getHeight();
 	}
 	else
 	{
-		heightMax = imCompare.getHeight();
+		heightMax = im.getHeight();
 	}
 
 	if (im.getWidth() > imCompare.getWidth())
 	{
-		widthMax = im.getWidth();
+		widthMax = imCompare.getWidth();
 	}
 	else
 	{
-		widthMax = imCompare.getWidth();
+		widthMax = im.getWidth();
 	}
 
 	for (int x = 0; x < widthMax; x++)
@@ -38,7 +38,7 @@ int diffVal(Image im, Image imCompare)
 		}
 	}
 
-	//std::cerr << "diffVal() : " << somme;
+	std::cerr << "diffVal() : " << somme;
 	return somme;
 
 }
@@ -52,20 +52,20 @@ int diffValWithMoy(Image im, Image imCompare)
 
 	if (im.getHeight() > imCompare.getHeight())
 	{
-		heightMax = im.getHeight();
+		heightMax = imCompare.getHeight();
 	}
 	else
 	{
-		heightMax = imCompare.getHeight();
+		heightMax = im.getHeight();
 	}
 
 	if (im.getWidth() > imCompare.getWidth())
 	{
-		widthMax = im.getWidth();
+		widthMax = imCompare.getWidth();
 	}
 	else
 	{
-		widthMax = imCompare.getWidth();
+		widthMax = im.getWidth();
 	}
 
 	for (int x = 0; x < widthMax; x++)
