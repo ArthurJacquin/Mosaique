@@ -18,10 +18,16 @@ void resizeCrop(Image& image, int factor)
 	image.setWidth(dimensionX);
 }
 
+//crop image by 2 from top left
 void cropTopLeft(Image &image) 
 {
 	int width = image.getWidth() / 2;
 	int height = image.getHeight() / 2;
+
+	std::cerr << "orig width : " << image.getWidth() << "; orig height : " << image.getHeight() << std::endl;
+	std::cerr << "center : (" << width << ", " << height << ")" << std::endl;
+	std::cerr << "copy start at : " << widthHalf - size / 2 << " and at : " << heightHalf - size / 2 << std::endl;
+	std::cerr << "copy end at : " << widthHalf + size / 2 << " and at : " << heightHalf + size / 2 << std::endl;
 
 	for (int i = 0; i < width; i++) 
 	{

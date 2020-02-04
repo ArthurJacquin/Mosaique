@@ -1,7 +1,2 @@
-﻿  Image.cpp
-C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Mosaique\Image.cpp(52,33): warning C4244: '=' : conversion de 'const float' en 'BYTE', perte possible de données
-C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Mosaique\Image.cpp(53,35): warning C4244: '=' : conversion de 'const float' en 'BYTE', perte possible de données
-C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Mosaique\Image.cpp(54,34): warning C4244: '=' : conversion de 'const float' en 'BYTE', perte possible de données
-C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Mosaique\Image.cpp(93,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Mosaique\Image.cpp(96,21): warning C4018: '<' : incompatibilité signed/unsigned
-  Mosaique.vcxproj -> C:\Users\artj3\Documents\Cours\4A ESGI\Mosaique\Debug\Mosaique.exe
+﻿  Mosaique.cpp
+  Mosaique.vcxproj -> D:\Projets\TI-CPP\Mosaique\Debug\Mosaique.exe
