@@ -26,8 +26,8 @@ void cropTopLeft(Image &image)
 
 	std::cerr << "orig width : " << image.getWidth() << "; orig height : " << image.getHeight() << std::endl;
 	std::cerr << "center : (" << width << ", " << height << ")" << std::endl;
-	std::cerr << "copy start at : " << widthHalf - size / 2 << " and at : " << heightHalf - size / 2 << std::endl;
-	std::cerr << "copy end at : " << widthHalf + size / 2 << " and at : " << heightHalf + size / 2 << std::endl;
+	//std::cerr << "copy start at : " << widthHalf - size / 2 << " and at : " << heightHalf - size / 2 << std::endl;
+	//std::cerr << "copy end at : " << widthHalf + size / 2 << " and at : " << heightHalf + size / 2 << std::endl;
 
 	for (int i = 0; i < width; i++) 
 	{

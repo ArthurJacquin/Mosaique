@@ -87,8 +87,8 @@ int diffValWithMoy(Image im, Image imCompare)
 int diffHisto(Image im1, Image im2) 
 {
 	int dist = 0;
-	vector<vector<int>> histo1 = calculateHistogram(im1);
-	vector<vector<int>> histo2 = calculateHistogram(im2);
+	//vector<vector<int>> histo1 = calculateHistogram(im1);
+	//vector<vector<int>> histo2 = calculateHistogram(im2);
 
 	int heightMax = 0;
 	int widthMax = 0;
@@ -138,4 +138,4 @@ vector<vector<int>> calculateHistogram(Image im)
 	}
 
 	return hist;
-}*/
+}
