@@ -8,17 +8,16 @@
 
 namespace fs = std::experimental::filesystem;
 
-void loadRegistre(vector<Image>& images)
+void loadRegistre(vector<Image>& images, string folderPath)
 {
-	const std::string path = "BaseImage";
-	auto directory = std::experimental::filesystem::directory_iterator(path.c_str());
+	auto directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
 	float imageTreated = 0;
 	float nbOfFiles = 0;
 
 	for (const auto& entry : directory)
 		nbOfFiles++;
 
-	directory = std::experimental::filesystem::directory_iterator(path.c_str());
+	directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
 
 	for (const auto& entry : directory)
 	{
@@ -28,6 +27,4 @@ void loadRegistre(vector<Image>& images)
 		images.push_back(im);
 		imageTreated++;
 	}
-
-	std::cout << "Chargement des images : 100%" << '\r';
 }

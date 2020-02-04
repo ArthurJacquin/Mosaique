@@ -1,30 +1,43 @@
 #include <iostream>
+#include <Windows.h>
 #include "Image.h"
 #include "Crop.h"
 #include "Similirate.h"
 #include "ImageTreatment.h"
 
+
 using namespace std;
 
 int main()
 {
-	string filename = "lenna.jpeg";
-	Image im (filename.c_str());
+	SetConsoleOutputCP(CP_UTF8);
 
-	string filenameL = "licorne.jpg";
-	Image imCompare(filenameL.c_str());
+	string imagePath;
+	cout << u8"Chemin de l'image à modifer ?" << "\n";
+	cin >> imagePath;
 
-	vector<Image> baseImages;
-	loadRegistre(baseImages);
+	cout << u8"Chargement de l'image" << "\r";
+	Image baseImage(imagePath.c_str());
+	cout << u8"Image chargé avec succès !" << "\n";
+
+	string databasePath;
+	cout << u8"Chemin du dossier contenant la base de données d'image ?" << "\n";
+	cin >> databasePath;
+
+
+	vector<Image> database;
+	loadRegistre(database, databasePath.c_str());
+	cout << u8"Base de données chargé avec succès !" << "\n";
+
+
 
 	
-	imCompare.convert(HSV);
-	//TODO: Faire des trucs sur l'image
+	/*imCompare.convert(HSV);
 	diffVal(im, imCompare);
-	//cropTopLeft(imCompare);
-	imCompare.convert(RGB);
+	cropTopLeft(imCompare);
+	imCompare.convert(RGB);*/
 
-	imCompare.save("save.jpg", imCompare.getBaseFormat());
+	baseImage.save("save.jpg", baseImage.getBaseFormat());
 	return 0;
 }
 
