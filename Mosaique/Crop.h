@@ -18,23 +18,6 @@ void resizeCrop(Image& image, int factor)
 	image.setWidth(dimensionX);
 }
 
-void crop(Image& image)
-{
-	int xDepart = image.getWidth() / 4;
-	int yDepart = image.getHeight() / 4;
-
-	for (int x = xDepart; x < int(image.getWidth() - xDepart); x++)
-	{
-		for (int y = yDepart; y < int(image.getHeight() - yDepart); y++)
-		{
-			image(x, y) = image(x, y);
-		}
-	}
-
-	image.setWidth(image.getWidth() - xDepart);
-	image.setHeight(image.getHeight() - yDepart);
-}
-
 void cropTopLeft(Image &image) 
 {
 	int width = image.getWidth() / 2;
@@ -52,16 +35,29 @@ void cropTopLeft(Image &image)
 	image.setHeight(height);
 }
 
+//Crop the image to a square which center is actual center of image and size of square's edge is 'size'
 void cropCentered(Image& image, int size) 
 {
-	int width = size * 2;
-	int height = size * 2;
-
-	for (int i = 0; i < width; i++)
+	if (size > image.getHeight() || size > image.getWidth()) 
 	{
-		for (int j = height; j < height; j++)
+		size = image.getWidth() < image.getHeight() ? image.getWidth() : image.getHeight();
+	}
+
+	int width = size;
+	int height = size;
+	int widthHalf = image.getWidth() / 2;
+	int heightHalf = image.getHeight() / 2;
+
+	/*std::cerr << "size : " << size << "; orig width : " << image.getWidth() << "; orig height : " << image.getHeight() << std::endl;
+	std::cerr << "center : (" << widthHalf << ", " << heightHalf << ")" << std::endl;
+	std::cerr << "copy start at : " << widthHalf - size / 2 << " and at : " << heightHalf - size / 2 << std::endl;
+	std::cerr << "copy end at : " << widthHalf + size / 2 << " and at : " << heightHalf + size / 2 << std::endl;*/
+
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
 		{
-			image(i, j) = image(i + size, j + size);
+			image(i, j) = image(i + (widthHalf - size / 2), j + (heightHalf - size / 2));
 		}
 	}
 
