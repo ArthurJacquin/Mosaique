@@ -16,6 +16,7 @@ int main()
 	imCompare.convert(HSV);
 	//TODO: Faire des trucs sur l'image
 	//diffVal(im, imCompare);
+	cropTopLeft(imCompare);
 	imCompare.convert(RGB);
 
 	imCompare.save("save.jpg", imCompare.getBaseFormat());
