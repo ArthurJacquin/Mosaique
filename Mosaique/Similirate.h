@@ -84,43 +84,19 @@ int diffValWithMoy(Image im, Image imCompare)
 
 }
 
-int diffHisto(Image im1, Image im2) 
-{
-	int dist = 0;
-	//vector<vector<int>> histo1 = calculateHistogram(im1);
-	//vector<vector<int>> histo2 = calculateHistogram(im2);
-
-	int heightMax = 0;
-	int widthMax = 0;
-
-	heightMax = im1.getHeight() > im2.getHeight() ? im1.getHeight() : im2.getHeight();
-	widthMax = im1.getWidth() > im2.getWidth() ? im1.getWidth() : im2.getWidth();
-
-	for (int x = 0; x < widthMax; x++)
-	{
-		for (int y = 0; y < heightMax; y++)
-		{
-			dist = 0;//abs(histo1 - histo2);
-		}
-	}
-
-
-	return dist;
-}
-
-vector<vector<int>> calculateHistogram(Image im) 
+vector<vector<int>> calculateHistogram(Image im)
 {
 	vector<vector<int>> hist;
 	hist.resize(3);
 
-	for (int i = 0; i < 3; i++) 
+	for (int i = 0; i < 3; i++)
 	{
 		hist[i].resize(255);
-		for (int x = 0; x < im.getWidth(); x++) 
+		for (int x = 0; x < im.getWidth(); x++)
 		{
 			for (int y = 0; y < im.getHeight(); y++)
 			{
-				switch(i) 
+				switch (i)
 				{
 				case 0:
 					hist[i][im(x, y).x] += 1;
@@ -138,4 +114,28 @@ vector<vector<int>> calculateHistogram(Image im)
 	}
 
 	return hist;
+}
+
+int diffHisto(Image im1, Image im2) 
+{
+	int dist = 0;
+	vector<vector<int>> histo1 = calculateHistogram(im1);
+	vector<vector<int>> histo2 = calculateHistogram(im2);
+
+	int heightMax = 0;
+	int widthMax = 0;
+
+	heightMax = im1.getHeight() > im2.getHeight() ? im1.getHeight() : im2.getHeight();
+	widthMax = im1.getWidth() > im2.getWidth() ? im1.getWidth() : im2.getWidth();
+
+	for (int x = 0; x < widthMax; x++)
+	{
+		for (int y = 0; y < heightMax; y++)
+		{
+			dist = 0;//abs(histo1 - histo2);
+		}
+	}
+
+
+	return dist;
 }
