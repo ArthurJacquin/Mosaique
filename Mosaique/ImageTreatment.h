@@ -29,27 +29,36 @@ void loadRegistre(vector<Image>& images, string folderPath)
 	}
 }
 
-vector<Color> cut(Image im, int nbrOfRows, int nbrOfCols)
+vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 {
-	vector<Color> imageCut;
+	int imageRows = int(im.getHeight() / nbrOfRows);
+	int imageCols = int(im.getWidth() / nbrOfCols);
+
+	vector<vector<Color>> imageCut;
+	imageCut.resize(nbrOfRows * nbrOfCols);
+
 	int i = 0;
+	int j = 0;
 
-	int imagesRows = int(im.getWidth() / nbrOfRows);
-	int imageCols = int(im.getHeight() / nbrOfCols);
-
-	for (int x = 0; x < im.getWidth(); x++)
+	for (int x = 0; x < im.getWidth() -1; x++)
 	{
-		for (int y = 0; y < im.getHeight(); y++)
+		imageCut[i].resize(imageRows * imageCols);
+
+		for (int y = 0; y < im.getHeight()-1; y++)
 		{
-			if (y % nbrOfCols == 0)
+			if (y % imageCols == 0 && y!= 0)
 			{
 				i++;
 			}
 
-			imageCut[i] = im(x, y);
+			imageCut[x + i][j] = im(x, y);
 		}
 
 		i = 0;
+		if (x % imageRows == 0 && x != 0)
+		{
+			j++;
+		}
 	}
 
 	return imageCut;
