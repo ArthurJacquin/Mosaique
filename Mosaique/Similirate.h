@@ -38,7 +38,7 @@ int diffVal(Image im, Image imCompare)
 		}
 	}
 
-	std::cerr << "diffVal() : " << somme;
+	//std::cerr << "diffVal() : " << somme;
 	return somme;
 
 }
@@ -79,7 +79,7 @@ int diffValWithMoy(Image im, Image imCompare)
 		}
 	}
 
-	std::cerr << "diffValMoyenne() : " << moy;
+	//std::cerr << "diffValMoyenne() : " << moy;
 	return moy;
 
 }
@@ -91,7 +91,7 @@ vector<vector<int>> calculateHistogram(Image im)
 
 	for (int i = 0; i < 3; i++)
 	{
-		hist[i].resize(255);
+		hist[i].resize(256);
 		for (int x = 0; x < im.getWidth(); x++)
 		{
 			for (int y = 0; y < im.getHeight(); y++)
@@ -119,23 +119,20 @@ vector<vector<int>> calculateHistogram(Image im)
 int diffHisto(Image im1, Image im2) 
 {
 	int dist = 0;
+	int diff[] = { 0, 0, 0 };
 	vector<vector<int>> histo1 = calculateHistogram(im1);
 	vector<vector<int>> histo2 = calculateHistogram(im2);
 
-	int heightMax = 0;
-	int widthMax = 0;
-
-	heightMax = im1.getHeight() > im2.getHeight() ? im1.getHeight() : im2.getHeight();
-	widthMax = im1.getWidth() > im2.getWidth() ? im1.getWidth() : im2.getWidth();
-
-	for (int x = 0; x < widthMax; x++)
+	for (int x = 0; x < 3; x++)
 	{
-		for (int y = 0; y < heightMax; y++)
+		for (int y = 0; y < 256; y++)
 		{
-			dist = 0;//abs(histo1 - histo2);
+			diff[x] = abs(histo1[x][y] - histo2[x][y]);
+			dist += diff[x];
 		}
 	}
 
-
+	//std::cerr << "diffHisto() : " << dist;
 	return dist;
+
 }
