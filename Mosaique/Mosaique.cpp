@@ -20,6 +20,8 @@ int main()
 	Image baseImage(imagePath.c_str());
 	cout << u8"Image chargé avec succès !" << "\n";
 
+	baseImage.convert(HSV);
+
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'image ?" << "\n";
 	cin >> databasePath;
@@ -29,6 +31,7 @@ int main()
 	loadRegistre(database, databasePath.c_str());
 	cout << u8"Base de données chargé avec succès !" << "\n";
 
+	baseImage.convert(RGB);
 
 
 	
