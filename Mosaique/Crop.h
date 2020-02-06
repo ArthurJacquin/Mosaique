@@ -37,23 +37,23 @@ void cropTopLeft(Image &image)
 }
 
 //Crop the image to a square which center is actual center of image and size of square's edge is 'size'
-void cropCentered(Image& image, int size) 
+void cropCentered(Image& image, int sizeWidth, int sizeHeight) 
 {
-	if (size > image.getHeight() || size > image.getWidth()) 
+	if (sizeHeight > image.getHeight() || sizeHeight > image.getWidth())
 	{
-		size = image.getWidth() < image.getHeight() ? image.getWidth() : image.getHeight();
+		sizeHeight = image.getWidth() < image.getHeight() ? image.getWidth() : image.getHeight();
 	}
 
-	int width = size;
-	int height = size;
+	int width = sizeWidth;
+	int height = sizeHeight;
 	int widthHalf = image.getWidth() / 2;
 	int heightHalf = image.getHeight() / 2;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < sizeWidth; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (int j = 0; j < sizeHeight; j++)
 		{
-			image(i, j) = image(i + (widthHalf - size / 2), j + (heightHalf - size / 2));
+			image(i, j) = image(i + (widthHalf - sizeWidth / 2), j + (heightHalf - sizeHeight / 2));
 		}
 	}
 

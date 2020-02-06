@@ -27,7 +27,8 @@ int main()
 
 	baseImage.convert(HSV);
 	//compareImage.convert(HSV);
-	cut(baseImage, 10, 10);
+	cropCentered(baseImage, 100, 100);
+	cut(baseImage, 4, 4);
 
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'image ?" << "\n";

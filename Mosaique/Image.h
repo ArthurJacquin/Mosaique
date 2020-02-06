@@ -21,6 +21,7 @@ class Image {
 	ImageType m_colorType; // Image color type (RGB, HSV, ...)
 
 public:
+	Image();
 	Image(const char* filename);
 	Image(const Image& im); //Constructor by copy
 

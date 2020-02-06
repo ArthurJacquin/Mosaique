@@ -4,6 +4,14 @@
 #include <iostream>
 #include <algorithm>
 
+Image::Image()
+{
+	m_pixels.resize(0);
+	m_height = 0;
+	m_width = 0;
+	m_colorType = RGB;
+}
+
 //Create an image from a file
 Image::Image(const char* filename)
 {
