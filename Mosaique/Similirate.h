@@ -155,7 +155,7 @@ int diffHistoBin(Image im1, Image im2, int nbBin)
 	vector<vector<int>> histo1 = calculateHistogram(im1);
 	vector<vector<int>> histo2 = calculateHistogram(im2);
 
-	int decal = 256 / nbBin;
+	int decal = int(256 / nbBin);
 	vector<vector<int>> histoBin1;
 	vector<vector<int>> histoBin2;
 	histoBin1.resize(3);
