@@ -116,10 +116,24 @@ vector<vector<int>> calculateHistogram(Image im)
 	return hist;
 }
 
+int binHisto(vector<vector<int>> hist, int start, int end) 
+{
+	int value = 0;
+
+	for (int x = 0; x < 3; x++)
+	{
+		for (int y = start; y < end; y++)
+		{
+			value += hist[x][y];
+		}
+	}
+
+	return value;
+}
+
 int diffHisto(Image im1, Image im2) 
 {
 	int dist = 0;
-	int diff[] = { 0, 0, 0 };
 	vector<vector<int>> histo1 = calculateHistogram(im1);
 	vector<vector<int>> histo2 = calculateHistogram(im2);
 
@@ -127,12 +141,44 @@ int diffHisto(Image im1, Image im2)
 	{
 		for (int y = 0; y < 256; y++)
 		{
-			diff[x] = abs(histo1[x][y] - histo2[x][y]);
-			dist += diff[x];
+			dist += abs(histo1[x][y] - histo2[x][y]);
 		}
 	}
 
-	//std::cerr << "diffHisto() : " << dist;
+	std::cerr << "diffHisto() : " << dist;
 	return dist;
+}
 
+int diffHistoBin(Image im1, Image im2, int nbBin) 
+{
+	int dist = 0;
+	vector<vector<int>> histo1 = calculateHistogram(im1);
+	vector<vector<int>> histo2 = calculateHistogram(im2);
+
+	int decal = 256 / nbBin;
+	vector<vector<int>> histoBin1;
+	vector<vector<int>> histoBin2;
+	histoBin1.resize(3);
+	histoBin2.resize(3);
+	for (int i = 0; i < 3; i++)
+	{
+		histoBin1[i].resize(nbBin);
+		histoBin2[i].resize(nbBin);
+		for (int j = 0; j < nbBin; j++) 
+		{
+			histoBin1[i][j] = binHisto(histo1, 0 + (decal * j), decal + (decal * j));
+			histoBin2[i][j] = binHisto(histo2, 0 + (decal * j), decal + (decal * j));
+		}
+	}
+
+	for (int x = 0; x < 3; x++)
+	{
+		for (int y = 0; y < nbBin; y++)
+		{
+			dist += abs(histoBin1[x][y] - histoBin2[x][y]);
+		}
+	}
+
+	std::cerr << "diffHistoBin() : " << dist << " with bin = " << nbBin;
+	return dist;
 }
