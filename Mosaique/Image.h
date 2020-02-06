@@ -49,5 +49,5 @@ public:
 	//Setters
 	void setHeight(int height) { m_height = height; }
 	void setWidth(int width) { m_width = width; }
-
+	//TODO : setPixels()
 };

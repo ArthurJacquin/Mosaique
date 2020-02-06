@@ -74,13 +74,15 @@ void resizeSet(vector<Image>& images, int w, int h)
 		cropCentered(images[i], width, height);
 	}	 
 }
-
+/*
 void findSim(vector<vector<Color>>& vignettes, vector<Image>& images)
 {
 	vector<Image> result;
+	vector<Image> vignetteIm;
+	vignetteIm. = vignettes;
 
 	for (int i = 0; i < images.size() ; i++)
 	{
-
+		diffVal(vignettesIm[i], images[i])
 	}
-}
+}*/
