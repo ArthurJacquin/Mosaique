@@ -127,7 +127,6 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 				indexImageData = j;
 			}
 		}
-
 		result[i].setPixels(database[indexImageData].getPixels());
 	}
 
