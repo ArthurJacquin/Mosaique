@@ -12,34 +12,40 @@ int main()
 {
 	SetConsoleOutputCP(CP_UTF8);
 
-	string imagePath;
-	cout << u8"Chemin de l'image à modifer ?" << "\n";
-	cin >> imagePath;
-	/*
-	string imageBisPath;
-	cout << u8"Chemin de l'image à comparer ?" << "\n";
-	cin >> imageBisPath;
-	*/
-	cout << u8"Chargement des images" << "\r";
-	Image baseImage(imagePath.c_str());
-	//Image compareImage(imageBisPath.c_str());
-	cout << u8"Images chargées avec succès !" << "\n";
+	Image baseImage;
 
+	string imagePath;
+	while (baseImage.getStateLoad() != true)
+	{
+		cout << u8"Chemin de l'image à modifier ?" << "\n";
+		cin >> imagePath;
+		/*
+		string imageBisPath;
+		cout << u8"Chemin de l'image à comparer ?" << "\n";
+		cin >> imageBisPath;
+		*/
+		cout << u8"Chargement de l'image" << "\r";
+		baseImage.loadFromFile(imagePath.c_str());
+	}
+	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n";
+
+	//Image compareImage(imageBisPath.c_str());
 	baseImage.convert(HSV);
 	//compareImage.convert(HSV);
 	cropCentered(baseImage, 100, 100);
-	vector<vector<Color>> vignettes;
-	vignettes = cut(baseImage, 4, 4);
+	//vector<vector<Color>> vignettes;
+	//vignettes = cut(baseImage, 4, 4);
 
 	string databasePath;
-	cout << u8"Chemin du dossier contenant la base de données d'image ?" << "\n";
+	cout << u8"Chemin du dossier contenant la base de données d'images ?" << "\n";
 	cin >> databasePath;
 
 	vector<Image> database;
 	loadRegistre(database, databasePath.c_str());
-	cout << u8"Base de données chargée avec succès !" << "\n";
 
-	//findSim(vignettes, database);
+	//resizeSet(database, 100, 100);
+	//vector<Image> vignettesBase;
+	//vignettesBase = findSim(vignettes, database);
 	baseImage.convert(RGB);
 	//compareImage.convert(RGB);
 	

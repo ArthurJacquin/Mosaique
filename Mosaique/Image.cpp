@@ -78,12 +78,13 @@ void Image::save(const char* filename, FREE_IMAGE_FORMAT format) const
 
 //Load the image given by the filename
 //Fill the pixel array with RGB values in each cell
-int Image::loadFromFile(char* filename)
+int Image::loadFromFile(const char* filename)
 {
 	//Get image format
 	FREE_IMAGE_FORMAT format = FreeImage_GetFileType(filename, 0);
 	if (format == FIF_UNKNOWN) {
-		cerr << "Format de fichier invalide !" << endl;
+		cerr << "Impossible de charger l'image" << endl;
+		successfullLoad = false;
 		return 0;
 	}
 
@@ -91,12 +92,16 @@ int Image::loadFromFile(char* filename)
 	FIBITMAP* bitmap = FreeImage_Load(format, filename);
 	if (!bitmap) {
 		cerr << "Impossible de charger l'image" << endl;
+		successfullLoad = false;
 		return 0;
 	}
+
+
 	//Convert to 32 bits to get pixels
 	bitmap = FreeImage_ConvertTo32Bits(bitmap);
 	if (!bitmap) {
 		cerr << "convertion impossible" << endl;
+		successfullLoad = false;
 		return 0;
 	}
 
@@ -117,7 +122,8 @@ int Image::loadFromFile(char* filename)
 		}
 	}
 
-	return 0;
+	successfullLoad = true;
+	return 1;
 }
 
 void Image::convert(ImageType type)

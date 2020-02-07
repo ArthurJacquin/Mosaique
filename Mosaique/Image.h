@@ -13,7 +13,7 @@ enum ImageType {
 
 class Image {
 	
-
+	bool successfullLoad = false;
 	FREE_IMAGE_FORMAT baseFormat; //Base image format
 	vector<vector<Color>> m_pixels; //Array of RGB pixels
 	int m_width; //Width
@@ -35,12 +35,13 @@ public:
 	
 	//Load/save functions (using FreeImage)
 	void save(const char* fileName, FREE_IMAGE_FORMAT format) const;
-	int loadFromFile(char* filename);
+	int loadFromFile(const char* filename);
 	
 	//Transformation functions
 	void convert(ImageType type);
 
 	//Getters
+	bool getStateLoad() const { return successfullLoad; }
 	int getHeight() const { return m_height; }
 	int getWidth() const { return m_width; }
 	vector<vector<Color>> getPixels() const { return m_pixels; }

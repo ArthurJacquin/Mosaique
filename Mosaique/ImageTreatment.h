@@ -29,6 +29,8 @@ void loadRegistre(vector<Image>& images, string folderPath)
 		images.push_back(im);
 		imageTreated++;
 	}
+
+	std::cout << u8"Base de données chargée avec succès !" << "\n";
 }
 
 vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
@@ -75,10 +77,10 @@ void resizeSet(vector<Image>& images, int w, int h)
 	}	 
 }
 
-void findSim(vector<vector<Color>>& vignettes, vector<Image>& images)
+vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database)
 {
 	vector<Image> result;
-	result.resize(images.size());
+	result.resize(database.size());
 
 	vector<Image> vignetteIm;
 	vignetteIm.resize(vignettes.size());
@@ -88,25 +90,29 @@ void findSim(vector<vector<Color>>& vignettes, vector<Image>& images)
 
 	for (int i = 0; i < vignettes.size() - 1; i++)
 	{
-		vignetteIm[i].setPixels(vignettes);
 		vignetteIm[i].setHeight(height);
 		vignetteIm[i].setWidth(width);
+		vignetteIm[i].setPixels(vignettes);
 	}
 
 	int min = 15000000;
-	int indexVignettes = 0;
+	int indexImageData = 0;
 
-	for (int i = 0; i < images.size(); i++)
+	for (int i = 0; i < vignetteIm.size(); i++)
 	{
-		for (int j = 0; j < vignettes.size(); j++)
+		for (int j = 0; j < database.size(); j++)
 		{
-			if (diffVal(vignetteIm[j], images[i]) < min)
+			int diff = diffVal(vignetteIm[i], database[j]);
+
+			if (diffVal(vignetteIm[i], database[j]) < min)
 			{
-				min = diffVal(vignetteIm[j], images[i]);
-				indexVignettes = j;
+				min = diffVal(vignetteIm[i], database[j]);
+				indexImageData = j;
 			}
 		}
 
-		result[i].setPixels(vignetteIm[indexVignettes].getPixels());
+		result[i].setPixels(database[indexImageData].getPixels());
 	}
+
+	return result;
 }
