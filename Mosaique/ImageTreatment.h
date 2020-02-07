@@ -77,6 +77,17 @@ void resizeSet(vector<Image>& images, int w, int h)
 	}	 
 }
 
+vector<vector<vector<int>>> histoSet(vector<Image> database)
+{
+	vector<vector<vector<int>>> histo;
+	histo.resize(database.size());
+
+	for (int i = 0; i < database.size(); i++)
+	{
+		histo[i] = calculateHistogram(database[i]);
+	}
+	return histo;
+}
 
 vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database, int nbrOfCols, int nbrOfRows)
 {

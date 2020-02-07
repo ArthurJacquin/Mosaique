@@ -19,7 +19,6 @@ class Image {
 	int m_width; //Width
 	int m_height; //Height
 	ImageType m_colorType; // Image color type (RGB, HSV, ...)
-	vector<vector<int>> m_histo;
 
 public:
 	Image();
@@ -54,5 +53,4 @@ public:
 	void setWidth(int width) { m_width = width; }
 	void setPixels(vector<vector<Color>> pixels);
 
-	vector<vector<int>> calculateHistogram();
 };

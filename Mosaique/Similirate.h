@@ -84,6 +84,37 @@ int diffValWithMoy(Image im, Image imCompare)
 
 }
 
+vector<vector<int>> calculateHistogram(Image im)
+{
+	vector<vector<int>> hist;
+	hist.resize(3);
+
+	for (int i = 0; i < 3; i++)
+	{
+		hist[i].resize(256);
+		for (int x = 0; x < im.getHeight(); x++)
+		{
+			for (int y = 0; y < im.getWidth(); y++)
+			{
+				switch (i)
+				{
+				case 0:
+					hist[i][im(x,y).x] += 1;
+					break;
+				case 1:
+					hist[i][im(x,y).y] += 1;
+					break;
+				case 2:
+					hist[i][im(x,y).z] += 1;
+					break;
+				}
+
+			}
+		}
+	}
+
+	return hist;
+}
 
 int binHisto(vector<vector<int>> hist, int start, int end) 
 {
@@ -119,8 +150,8 @@ int diffHisto(vector<vector<int>> histo1, vector<vector<int>> histo2)
 int diffHistoBin(Image im1, Image im2, int nbBin) 
 {
 	int dist = 0;
-	vector<vector<int>> histo1 = im1.calculateHistogram();
-	vector<vector<int>> histo2 = im2.calculateHistogram();
+	vector<vector<int>> histo1 = calculateHistogram(im1);
+	vector<vector<int>> histo2 = calculateHistogram(im2);
 
 	int decal = int(256 / nbBin);
 	vector<vector<int>> histoBin1;
