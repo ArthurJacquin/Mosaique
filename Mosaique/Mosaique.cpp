@@ -28,7 +28,8 @@ int main()
 	baseImage.convert(HSV);
 	//compareImage.convert(HSV);
 	cropCentered(baseImage, 100, 100);
-	cut(baseImage, 4, 4);
+	vector<vector<Color>> vignettes;
+	vignettes = cut(baseImage, 4, 4);
 
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'image ?" << "\n";
@@ -38,6 +39,7 @@ int main()
 	loadRegistre(database, databasePath.c_str());
 	cout << u8"Base de données chargée avec succès !" << "\n";
 
+	//findSim(vignettes, database);
 	baseImage.convert(RGB);
 	//compareImage.convert(RGB);
 	

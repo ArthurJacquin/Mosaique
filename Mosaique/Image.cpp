@@ -241,3 +241,8 @@ void Image::convert(ImageType type)
 		break;
 	}
 }
+
+void Image::setPixels(vector<vector<Color>> pixels)
+{
+	m_pixels = pixels;
+}

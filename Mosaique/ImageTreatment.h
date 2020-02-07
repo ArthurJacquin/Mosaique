@@ -74,15 +74,39 @@ void resizeSet(vector<Image>& images, int w, int h)
 		cropCentered(images[i], width, height);
 	}	 
 }
-/*
+
 void findSim(vector<vector<Color>>& vignettes, vector<Image>& images)
 {
 	vector<Image> result;
-	vector<Image> vignetteIm;
-	vignetteIm. = vignettes;
+	result.resize(images.size());
 
-	for (int i = 0; i < images.size() ; i++)
+	vector<Image> vignetteIm;
+	vignetteIm.resize(vignettes.size());
+
+	int width = 100;
+	int height = 100;
+
+	for (int i = 0; i < vignettes.size() - 1; i++)
 	{
-		diffVal(vignettesIm[i], images[i])
+		vignetteIm[i].setPixels(vignettes);
+		vignetteIm[i].setHeight(height);
+		vignetteIm[i].setWidth(width);
 	}
-}*/
+
+	int min = 15000000;
+	int indexVignettes = 0;
+
+	for (int i = 0; i < images.size(); i++)
+	{
+		for (int j = 0; j < vignettes.size(); j++)
+		{
+			if (diffVal(vignetteIm[j], images[i]) < min)
+			{
+				min = diffVal(vignetteIm[j], images[i]);
+				indexVignettes = j;
+			}
+		}
+
+		result[i].setPixels(vignetteIm[indexVignettes].getPixels());
+	}
+}
