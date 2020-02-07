@@ -44,7 +44,6 @@ public:
 	bool getStateLoad() const { return successfullLoad; }
 	int getHeight() const { return m_height; }
 	int getWidth() const { return m_width; }
-	vector<vector<int>> getHisto() const { return m_histo; }
 	vector<vector<Color>> getPixels() const { return m_pixels; }
 	FREE_IMAGE_FORMAT getBaseFormat() const { return baseFormat; }
 

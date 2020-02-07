@@ -45,10 +45,11 @@ int main()
 	vector<Image> database;
 	loadRegistre(database, databasePath.c_str());
 	resizeSet(database, 100, 100);
-	histoSet(database);
+	vector<vector<vector<int>>> histogramSet;
+	histogramSet = histoSet(database);
 
 	vector<Image> vignettesBase;
-	vignettesBase = findSim(vignettes, database, 4, 4);
+	vignettesBase = findSim(vignettes, database, histogramSet, 4, 4);
 	baseImage.convert(RGB);
 	//compareImage.convert(RGB);
 	

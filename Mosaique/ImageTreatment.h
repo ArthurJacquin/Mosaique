@@ -89,13 +89,16 @@ vector<vector<vector<int>>> histoSet(vector<Image> database)
 	return histo;
 }
 
-vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database, int nbrOfCols, int nbrOfRows)
+vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database, vector<vector<vector<int>>> histogramSet, int nbrOfCols, int nbrOfRows)
 {
 	vector<Image> result;
 	result.resize(vignettes.size());
 
 	vector<Image> vignetteIm;
 	vignetteIm.resize(vignettes.size());
+
+	vector<vector<vector<int>>> histoVignette;
+	histoVignette.resize(vignettes.size());
 
 	int width = 100;
 	int height = 100;
@@ -105,6 +108,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 		vignetteIm[i].setHeight(height);
 		vignetteIm[i].setWidth(width);
 		vignetteIm[i].setPixels(vignettes);
+		histoVignette[i] = calculateHistogram(vignetteIm[i]);
 	}
 
 	int min = 15000000;
@@ -115,7 +119,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 	{
 		for (int j = 0; j < database.size(); j++)
 		{
-			diff = diffHisto(vignetteIm[i].getHisto(), database[j].getHisto());
+			diff = diffHisto(histoVignette[i], histogramSet[j]);
 			if (diff < min)
 			{
 				min = diff;
