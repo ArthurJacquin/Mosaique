@@ -108,7 +108,6 @@ vector<vector<int>> calculateHistogram(Image im)
 					hist[i][im(x,y).z] += 1;
 					break;
 				}
-
 			}
 		}
 	}

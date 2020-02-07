@@ -103,12 +103,13 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 	int width = 100;
 	int height = 100;
 
-	for (int i = 0; i < vignettes.size() - 1; i++)
+	for (int i = 0; i < vignettes.size(); i++)
 	{
 		vignetteIm[i].setHeight(height);
 		vignetteIm[i].setWidth(width);
-		vignetteIm[i].setPixels(vignettes);
-		histoVignette[i] = calculateHistogram(vignetteIm[i]);
+
+		vignetteIm[i].setPixels(vignettes[i]);
+		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
 	}
 
 	int min = 15000000;
