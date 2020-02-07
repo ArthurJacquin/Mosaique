@@ -1,8 +1,9 @@
+#pragma once
 #include <iostream>
 #include <Windows.h>
 #include "Image.h"
 #include "Crop.h"
-#include "Similirate.h"
+//#include "Similirate.h"
 #include "ImageTreatment.h"
 
 
@@ -33,8 +34,9 @@ int main()
 	baseImage.convert(HSV);
 	//compareImage.convert(HSV);
 	cropCentered(baseImage, 100, 100);
-	//vector<vector<Color>> vignettes;
-	//vignettes = cut(baseImage, 4, 4);
+
+	vector<vector<Color>> vignettes;
+	vignettes = cut(baseImage, 4, 4);
 
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'images ?" << "\n";
@@ -43,9 +45,9 @@ int main()
 	vector<Image> database;
 	loadRegistre(database, databasePath.c_str());
 
-	//resizeSet(database, 100, 100);
-	//vector<Image> vignettesBase;
-	//vignettesBase = findSim(vignettes, database);
+	resizeSet(database, 100, 100);
+	vector<Image> vignettesBase;
+	vignettesBase = findSim(vignettes, database, 4, 4);
 	baseImage.convert(RGB);
 	//compareImage.convert(RGB);
 	

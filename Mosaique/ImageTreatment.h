@@ -77,10 +77,11 @@ void resizeSet(vector<Image>& images, int w, int h)
 	}	 
 }
 
-vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database)
+
+vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database, int nbrOfCols, int nbrOfRows)
 {
 	vector<Image> result;
-	result.resize(database.size());
+	result.resize(vignettes.size());
 
 	vector<Image> vignetteIm;
 	vignetteIm.resize(vignettes.size());
@@ -96,17 +97,17 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database)
 	}
 
 	int min = 15000000;
+	int diff = 0;
 	int indexImageData = 0;
 
-	for (int i = 0; i < vignetteIm.size(); i++)
+	for (int i = 0; i < nbrOfCols * nbrOfRows; i++)
 	{
 		for (int j = 0; j < database.size(); j++)
 		{
-			int diff = diffVal(vignetteIm[i], database[j]);
-
-			if (diffVal(vignetteIm[i], database[j]) < min)
+			diff = diffHisto(vignetteIm[i].getHisto(), database[j].getHisto());
+			if (diff < min)
 			{
-				min = diffVal(vignetteIm[i], database[j]);
+				min = diff;
 				indexImageData = j;
 			}
 		}

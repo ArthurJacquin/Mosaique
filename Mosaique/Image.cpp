@@ -1,3 +1,4 @@
+#pragma once
 #include "Image.h"
 #include <stdio.h>
 #include <setjmp.h>
@@ -10,6 +11,7 @@ Image::Image()
 	m_height = 0;
 	m_width = 0;
 	m_colorType = RGB;
+	m_histo.resize(0);
 }
 
 //Create an image from a file
@@ -17,6 +19,7 @@ Image::Image(const char* filename)
 {
 	this->loadFromFile((char*)filename);
 	this->m_colorType = RGB;
+	this->m_histo = this->calculateHistogram();
 }
 
 //Constructor by copy
@@ -26,6 +29,7 @@ Image::Image(const Image& im)
 	m_height = im.m_height;
 	m_width = im.m_width;
 	m_colorType = im.m_colorType;
+	m_histo = im.m_histo;
 }
 
 Image::~Image()
@@ -251,4 +255,37 @@ void Image::convert(ImageType type)
 void Image::setPixels(vector<vector<Color>> pixels)
 {
 	m_pixels = pixels;
+}
+
+
+vector<vector<int>> Image::calculateHistogram()
+{
+	vector<vector<int>> hist;
+	hist.resize(3);
+
+	for (int i = 0; i < 3; i++)
+	{
+		hist[i].resize(256);
+		for (int x = 0; x < this->getWidth(); x++)
+		{
+			for (int y = 0; y < this->getHeight(); y++)
+			{
+				switch (i)
+				{
+				case 0:
+					hist[i][m_pixels[x][y].x] += 1;
+					break;
+				case 1:
+					hist[i][m_pixels[x][y].y] += 1;
+					break;
+				case 2:
+					hist[i][m_pixels[x][y].z] += 1;
+					break;
+				}
+
+			}
+		}
+	}
+
+	return hist;
 }
