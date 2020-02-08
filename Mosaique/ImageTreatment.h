@@ -89,6 +89,7 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 		{
 			for (int y = 0; y < image.getWidth(); y++)
 			{
+				//TODO : debug cet algo de merde
 				image(x, y) = vignettesIm[i](x * i % nbCol, y * i % nbRow);
 			}
 		}
