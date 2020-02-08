@@ -73,15 +73,26 @@ vector<Image> reassembleVignettes(vector<vector<Color>> vignettes, int height, i
 		std::cout << u8"Tableau de vignettes (pixels) vide !" << "\n";
 
 	vector<Image> vignettesReassemble;
+	vignettesReassemble.resize(vignettes.size());
 
-
+	for (int i = 0; i < vignettes.size(); i++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				vignettesReassemble[i](x, y) = vignettes[i][x + i % width];
+			}
+		}
+	}
 
 	return vignettesReassemble;
 }
 
 //À voir si c'est pas mieux de retoucher direct à l'image donc retourner 'Image&' et pas 'Image'
 //et donc prendre en paramètre 'Image& imageBase' et retoucher à cette image.
-//Ça permettrait notamment de pas avoir à prendre en compte la height et la width puisque c'est celle de l'image
+//Ça permettrait notamment de pas avoir à prendre en paramètre la height et la width puisque c'est celle de l'image
+//mais plutôt la dimension des vignettes puisqu'on en a besoin
 Image reassembleFinaleIm(vector<Image> vignettesIm, int height, int width) 
 {
 	if (vignettesIm.size() == 0)
@@ -139,21 +150,15 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 
 	vector<Image> vignetteIm;
 	vignetteIm.resize(vignettes.size());
+	vignetteIm = reassembleVignettes(vignettes, nbrOfRows, nbrOfCols);
 
 	vector<vector<vector<int>>> histoVignette;
 	histoVignette.resize(vignettes.size());
 
-	int width = 100;
-	int height = 100;
-
 	for (int i = 0; i < vignettes.size(); i++)
 	{
-		vignetteIm[i].setHeight(height);
-		vignetteIm[i].setWidth(width);
-
-		vignetteIm[i].setPixels(vignettes[i]);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
-	}
+	}	
 
 	int min = 15000000;
 	int diff = 0;
