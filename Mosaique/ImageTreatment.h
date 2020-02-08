@@ -133,13 +133,13 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	}
 	std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";
 
-	int min = 15000000;
-	int diff = 0;
-	int indexImageData = 0;
 	int nbOfComparisaon = 0;
 
 	for (int i = 0; i < nbrOfCols * nbrOfRows; i++)
 	{
+		int min = 15000000;
+		int diff = 0;
+		int indexImageData = 0;
 		for (int j = 0; j < database.size(); j++)
 		{
 			diff = diffHisto(histoVignette[i], histogramSet[j]);
@@ -151,9 +151,9 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 			}
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
+		std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparisaon << "\n";
 	}
 	std::cout << u8"Images similaires trouvées !" << "\n";
-	std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparisaon << "\n";
 
 	return result;
 }
