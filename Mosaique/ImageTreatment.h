@@ -44,11 +44,11 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	int i = 0;
 	int j = 0;
 
-	for (int x = 0; x < im.getWidth(); x++)
+	for (int x = 0; x < im.getHeight(); x++)
 	{
 		i = j * nbrOfRows;
 
-		for (int y = 0; y < im.getHeight(); y++)
+		for (int y = 0; y < im.getWidth(); y++)
 		{
 			imageCut[i].push_back(im(x, y));
 			if ((y + 1) % vignetteCols == 0 && y!= 0)
@@ -66,20 +66,6 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	return imageCut;
 }
 
-/*//Reassemble the pixels to form vignettes (image)
-void reassembleVignettes(vector<Image>& vignettesResult, vector<vector<Color>> vignettes)
-{
-	if(vignettes.size() == 0) 
-		std::cout << u8"Tableau de vignettes (pixels) vide !" << "\n";
-
-	for (int i = 0; i < vignettes.size(); i++)
-	{
-		vignettesResult[i].setPixels(vignettes);
-	}
-
-	std::cout << u8"Tableau de vignettes (images) réassemblé !" << "\n";
-}*/
-
 //Reassemble the vignettes to form an image
 void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int nbCol)
 {
@@ -88,9 +74,9 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 	
 	for (int i = 0; i < vignettesIm.size(); i++) 
 	{
-		for (int x = 0; x < image.getWidth(); x++)
+		for (int x = 0; x < image.getHeight(); x++)
 		{
-			for (int y = 0; y < image.getHeight(); y++)
+			for (int y = 0; y < image.getWidth(); y++)
 			{
 				image(x, y) = vignettesIm[i](x * i % nbCol, y * i % nbRow);
 			}
@@ -126,12 +112,12 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	result.resize(vignettes.size());
 
 	vector<Image> vignetteIm;
-	vignetteIm.resize(vignettes.size());
+	//vignetteIm.resize(vignettes.size());
 	vector<vector<vector<int>>> histoVignette;
-	for (int i = 0; i < vignetteIm.size(); i++) 
+	for (int i = 0; i < vignettes.size(); i++) 
 	{
-		vignetteIm[i] = Image(width * height);
-		vignetteIm[i].setPixels(vignettes);
+		vignetteIm.push_back(Image(width, height));
+		vignetteIm[i].setPixels(vignettes[i]);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
 	}
 	std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";

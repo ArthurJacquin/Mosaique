@@ -22,7 +22,7 @@ class Image {
 
 public:
 	Image();
-	Image(int nbPixels);
+	Image(int widht, int height);
 	Image(const char* filename);
 	Image(const Image& im); //Constructor by copy
 
@@ -49,7 +49,8 @@ public:
 	FREE_IMAGE_FORMAT getBaseFormat() const { return baseFormat; }
 
 	//Setters
-	void setHeight(int height) { m_height = height; }
-	void setWidth(int width) { m_width = width; }
+	void setHeight(int height);
+	void setWidth(int width);
 	void setPixels(vector<vector<Color>> pixels);
+	void setPixels(vector<Color> pixels);
 };

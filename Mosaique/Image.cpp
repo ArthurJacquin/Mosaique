@@ -13,11 +13,15 @@ Image::Image()
 	m_colorType = RGB;
 }
 
-Image::Image(int nbPixels) 
+Image::Image(int width, int height) 
 {
-	m_pixels.resize(nbPixels);
-	m_height = 0;
-	m_width = 0;
+	m_pixels.resize(height);
+	for (int i = 0; i < height; i++) 
+	{
+		m_pixels[i].resize(width);
+	}
+	m_height = height;
+	m_width = width;
 	m_colorType = RGB;
 }
 
@@ -257,7 +261,37 @@ void Image::convert(ImageType type)
 	}
 }
 
+void Image::setHeight(int height) 
+{ 
+	m_height = height; 
+	m_pixels.resize(height);
+}
+
+void Image::setWidth(int width) 
+{
+	m_width = width;
+	for (int i = 0; i < m_height; i++) 
+	{
+		m_pixels[i].resize(width);
+	}
+}
+
 void Image::setPixels(vector<vector<Color>> pixels)
 {
 	m_pixels = pixels;
+}
+
+void Image::setPixels(vector<Color> pixels) 
+{
+	for (int i = 0; i < pixels.size(); i++) 
+	{
+		for (int x = 0; x < m_height; x++) 
+		{
+			for (int y = 0; y < m_width; y++) 
+			{
+				m_pixels[x][y] = pixels[i + x % m_height];
+			}
+		}
+	}
+	//vignettesReassemble[i](x, y) = vignettes[i][x + i % width];
 }

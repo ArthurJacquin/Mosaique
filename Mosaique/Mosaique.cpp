@@ -40,18 +40,7 @@ int main()
 
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, 4, 4);
-
-	//string dataBaseTest;
-	//cout << u8"Chemin du dossier contenant la base de données d'images test ?" << "\n";
-	//cin >> dataBaseTest;
-	//vector<Image> test;
-	//loadRegistre(test, dataBaseTest.c_str());
-	//resizeSet(test, 100, 100);
-	//for (int i = 0; i < test.size(); i++) 
-	//{
-	//	test[i].save("test.jpg", test[i].getBaseFormat());
-	//}
-
+	
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'images ?" << "\n";
 	cin >> databasePath;
