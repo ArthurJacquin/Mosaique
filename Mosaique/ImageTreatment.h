@@ -30,7 +30,7 @@ void loadRegistre(vector<Image>& images, string folderPath)
 		imageTreated++;
 	}
 
-	std::cout << u8"Base de données chargée avec succès !" << "\n";
+	std::cout << u8"Base de données chargée avec succès !" << "\n\n";
 }
 
 vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
@@ -66,68 +66,45 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	return imageCut;
 }
 
-//Reassemble the vignettes to form an image
-vector<Image> reassembleVignettes(vector<vector<Color>> vignettes, int height, int width) 
+/*//Reassemble the pixels to form vignettes (image)
+void reassembleVignettes(vector<Image>& vignettesResult, vector<vector<Color>> vignettes)
 {
 	if(vignettes.size() == 0) 
 		std::cout << u8"Tableau de vignettes (pixels) vide !" << "\n";
 
-	vector<Image> vignettesReassemble;
-	vignettesReassemble.resize(vignettes.size());
-
 	for (int i = 0; i < vignettes.size(); i++)
 	{
-		for (int x = 0; x < width; x++)
-		{
-			for (int y = 0; y < height; y++)
-			{
-				vignettesReassemble[i](x, y) = vignettes[i][x + i % width];
-			}
-		}
+		vignettesResult[i].setPixels(vignettes);
 	}
 
-	return vignettesReassemble;
-}
+	std::cout << u8"Tableau de vignettes (images) réassemblé !" << "\n";
+}*/
 
-//À voir si c'est pas mieux de retoucher direct à l'image donc retourner 'Image&' et pas 'Image'
-//et donc prendre en paramètre 'Image& imageBase' et retoucher à cette image.
-//Ça permettrait notamment de pas avoir à prendre en paramètre la height et la width puisque c'est celle de l'image
-//mais plutôt la dimension des vignettes puisqu'on en a besoin
-Image reassembleFinaleIm(vector<Image> vignettesIm, int height, int width) 
+//Reassemble the vignettes to form an image
+void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int nbCol)
 {
 	if (vignettesIm.size() == 0)
 		std::cout << u8"Tableau de vignettes (images) vide !" << "\n";
-
-	Image imageReassemble = Image(); //Si ça ne fonctionne pas comme ça, deux soluc' : fix le constructeur par défaut ou faire une copie de la première image 
 	
-	imageReassemble.setWidth(width);
-	imageReassemble.setHeight(height);
-
-	int widthVignettes = width / vignettesIm.size();
-	int heightVignettes = height / vignettesIm.size();
-
 	for (int i = 0; i < vignettesIm.size(); i++) 
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < image.getWidth(); x++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int y = 0; y < image.getHeight(); y++)
 			{
-				imageReassemble(x, y) = vignettesIm[i](x * i % widthVignettes, y * i % heightVignettes);
+				image(x, y) = vignettesIm[i](x * i % nbCol, y * i % nbRow);
 			}
 		}
 	}
 
-	return imageReassemble;
+	std::cout << u8"Image réassemblée !" << "\n";
 }
 
 void resizeSet(vector<Image>& images, int w, int h)
 {
-	int width = 100;
-	int height = 100;
-
 	for (int i = 0; i < images.size(); ++i)
 	{
-		cropCentered(images[i], width, height);
+		cropCentered(images[i], w, h);
 	}	 
 }
 
@@ -143,22 +120,21 @@ vector<vector<vector<int>>> histoSet(vector<Image> database)
 	return histo;
 }
 
-vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database, vector<vector<vector<int>>> histogramSet, int nbrOfCols, int nbrOfRows)
+vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, vector<Image>& database, vector<vector<vector<int>>> histogramSet, int nbrOfCols, int nbrOfRows)
 {
 	vector<Image> result;
 	result.resize(vignettes.size());
 
 	vector<Image> vignetteIm;
 	vignetteIm.resize(vignettes.size());
-	vignetteIm = reassembleVignettes(vignettes, nbrOfRows, nbrOfCols);
-
 	vector<vector<vector<int>>> histoVignette;
-	histoVignette.resize(vignettes.size());
-
-	for (int i = 0; i < vignettes.size(); i++)
+	for (int i = 0; i < vignetteIm.size(); i++) 
 	{
+		vignetteIm[i] = Image(width * height);
+		vignetteIm[i].setPixels(vignettes);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
-	}	
+	}
+	std::cout << u8"Tableau de vignettes (images) réassemblé et histogrammes calculés!" << "\n";
 
 	int min = 15000000;
 	int diff = 0;
@@ -177,6 +153,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, vector<Image>& database,
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
 	}
+	std::cout << u8"Images similaires trouvées !" << "\n";
 
 	return result;
 }

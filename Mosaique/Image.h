@@ -22,6 +22,7 @@ class Image {
 
 public:
 	Image();
+	Image(int nbPixels);
 	Image(const char* filename);
 	Image(const Image& im); //Constructor by copy
 

@@ -13,6 +13,14 @@ Image::Image()
 	m_colorType = RGB;
 }
 
+Image::Image(int nbPixels) 
+{
+	m_pixels.resize(nbPixels);
+	m_height = 0;
+	m_width = 0;
+	m_colorType = RGB;
+}
+
 //Create an image from a file
 Image::Image(const char* filename)
 {

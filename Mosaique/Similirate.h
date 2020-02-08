@@ -142,7 +142,7 @@ int diffHisto(vector<vector<int>> histo1, vector<vector<int>> histo2)
 		}
 	}
 
-	std::cerr << "diffHisto() : " << dist;
+	//std::cerr << "diffHisto() : " << dist;
 	return dist;
 }
 
@@ -176,6 +176,6 @@ int diffHistoBin(Image im1, Image im2, int nbBin)
 		}
 	}
 
-	std::cerr << "diffHistoBin() : " << dist << " with bin = " << nbBin;
+	//std::cerr << "diffHistoBin() : " << dist << " with bin = " << nbBin;
 	return dist;
 }
