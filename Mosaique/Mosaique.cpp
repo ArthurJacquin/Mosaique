@@ -50,6 +50,7 @@ int main()
 
 	vector<Image> vignettesBase;
 	vignettesBase = findSim(vignettes, database, histogramSet, 4, 4);
+	baseImage = reassembleFinaleIm(vignettesBase, baseImage.getWidth(), baseImage.getHeight());
 	baseImage.convert(RGB);
 	//compareImage.convert(RGB);
 	

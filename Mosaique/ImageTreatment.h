@@ -70,7 +70,7 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 vector<Image> reassembleVignettes(vector<vector<Color>> vignettes, int height, int width) 
 {
 	if(vignettes.size() == 0) 
-		std::cout << u8"Tableau de vignettes vide !" << "\n";
+		std::cout << u8"Tableau de vignettes (pixels) vide !" << "\n";
 
 	vector<Image> vignettesReassemble;
 
@@ -79,10 +79,16 @@ vector<Image> reassembleVignettes(vector<vector<Color>> vignettes, int height, i
 	return vignettesReassemble;
 }
 
+//À voir si c'est pas mieux de retoucher direct à l'image donc retourner 'Image&' et pas 'Image'
+//et donc prendre en paramètre 'Image& imageBase' et retoucher à cette image.
+//Ça permettrait notamment de pas avoir à prendre en compte la height et la width puisque c'est celle de l'image
 Image reassembleFinaleIm(vector<Image> vignettesIm, int height, int width) 
 {
-	Image imageReassemble = Image(); //Si ça ne fonctionne pas comme ça, deux soluc' : fix le constructeur par défaut ou faire une copie de la première image 
+	if (vignettesIm.size() == 0)
+		std::cout << u8"Tableau de vignettes (images) vide !" << "\n";
 
+	Image imageReassemble = Image(); //Si ça ne fonctionne pas comme ça, deux soluc' : fix le constructeur par défaut ou faire une copie de la première image 
+	
 	imageReassemble.setWidth(width);
 	imageReassemble.setHeight(height);
 
