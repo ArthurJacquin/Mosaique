@@ -134,7 +134,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 		vignetteIm[i].setPixels(vignettes);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
 	}
-	std::cout << u8"Tableau de vignettes (images) réassemblé et histogrammes calculés!" << "\n";
+	std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";
 
 	int min = 15000000;
 	int diff = 0;

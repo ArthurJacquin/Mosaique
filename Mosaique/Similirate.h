@@ -142,7 +142,7 @@ int diffHisto(vector<vector<int>> histo1, vector<vector<int>> histo2)
 		}
 	}
 
-	//std::cerr << "diffHisto() : " << dist;
+	std::cerr << "diffHisto() : " << dist << "\n";
 	return dist;
 }
 
