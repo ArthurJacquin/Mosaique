@@ -39,19 +39,19 @@ int main()
 	cropCentered(baseImage, 100, 100);
 	baseImage.save("test.jpg", baseImage.getBaseFormat());
 
+	int nbRow = 4;
+	int nbCol = 4;
+	//TODO : récupérer ces caleurs depuis la console (set par l'utilisateur)
+
 	vector<vector<Color>> vignettes;
-	vignettes = cut(baseImage, 4, 4);
+	vignettes = cut(baseImage, nbRow, nbCol);
 	
 	string databasePath;
 	cout << u8"Chemin du dossier contenant la base de données d'images ?" << "\n";
 	cin >> databasePath;
 
-	int widthVignettes = 25;
-	int heightVignettes = 25;
-
-	int nbRow = 4;
-	int nbCol = 4;
-	//TODO : récupérer ces caleurs depuis la console (set par l'utilisateur)
+	int widthVignettes = baseImage.getWidth() / nbCol;
+	int heightVignettes = baseImage.getHeight() / nbRow;
 
 	vector<Image> database;
 	loadRegistre(database, databasePath.c_str());
