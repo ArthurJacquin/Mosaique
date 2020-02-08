@@ -253,3 +253,8 @@ void Image::setPixels(vector<vector<Color>> pixels)
 {
 	m_pixels = pixels;
 }
+
+void Image::convertPixelsToImage()
+{
+
+}

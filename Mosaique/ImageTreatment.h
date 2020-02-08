@@ -66,6 +66,43 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	return imageCut;
 }
 
+//Reassemble the vignettes to form an image
+vector<Image> reassembleVignettes(vector<vector<Color>> vignettes, int height, int width) 
+{
+	if(vignettes.size() == 0) 
+		std::cout << u8"Tableau de vignettes vide !" << "\n";
+
+	vector<Image> vignettesReassemble;
+
+
+
+	return vignettesReassemble;
+}
+
+Image reassembleFinaleIm(vector<Image> vignettesIm, int height, int width) 
+{
+	Image imageReassemble = Image(); //Si ça ne fonctionne pas comme ça, deux soluc' : fix le constructeur par défaut ou faire une copie de la première image 
+
+	imageReassemble.setWidth(width);
+	imageReassemble.setHeight(height);
+
+	int widthVignettes = width / vignettesIm.size();
+	int heightVignettes = height / vignettesIm.size();
+
+	for (int i = 0; i < vignettesIm.size(); i++) 
+	{
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				imageReassemble(x, y) = vignettesIm[i](x * i % widthVignettes, y * i % heightVignettes);
+			}
+		}
+	}
+
+	return imageReassemble;
+}
+
 void resizeSet(vector<Image>& images, int w, int h)
 {
 	int width = 100;

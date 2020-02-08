@@ -51,5 +51,6 @@ public:
 	void setHeight(int height) { m_height = height; }
 	void setWidth(int width) { m_width = width; }
 	void setPixels(vector<vector<Color>> pixels);
+	void convertPixelsToImage();
 
 };
