@@ -283,15 +283,11 @@ void Image::setPixels(vector<vector<Color>> pixels)
 
 void Image::setPixels(vector<Color> pixels) 
 {
-	for (int i = 0; i < pixels.size(); i++) 
+	for (int x = 0; x < m_height; x++)
 	{
-		for (int x = 0; x < m_height; x++) 
+		for (int y = 0; y < m_width; y++)
 		{
-			for (int y = 0; y < m_width; y++) 
-			{
-				m_pixels[x][y] = pixels[i + x % m_height];
-			}
+			m_pixels[x][y] = pixels[x * m_width + y];
 		}
 	}
-	//vignettesReassemble[i](x, y) = vignettes[i][x + i % width];
 }

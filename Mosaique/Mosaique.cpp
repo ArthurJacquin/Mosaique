@@ -35,8 +35,9 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
-	baseImage.convert(HSV);
+	//baseImage.convert(HSV);
 	cropCentered(baseImage, 100, 100);
+	baseImage.save("test.jpg", baseImage.getBaseFormat());
 
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, 4, 4);
@@ -45,8 +46,8 @@ int main()
 	cout << u8"Chemin du dossier contenant la base de données d'images ?" << "\n";
 	cin >> databasePath;
 
-	int widthVignettes = 100;
-	int heightVignettes = 100;
+	int widthVignettes = 25;
+	int heightVignettes = 25;
 
 	int nbRow = 4;
 	int nbCol = 4;
@@ -61,7 +62,7 @@ int main()
 	vector<Image> vignettesBase;
 	vignettesBase = findSim(vignettes, widthVignettes, heightVignettes, database, histogramSet, nbCol, nbRow);
 	reassembleFinaleIm(baseImage, vignettesBase, nbRow, nbCol);
-	baseImage.convert(RGB);
+	//baseImage.convert(RGB);
 
 	baseImage.save("save.jpg", baseImage.getBaseFormat());
 	return 0;

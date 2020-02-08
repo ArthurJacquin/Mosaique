@@ -44,10 +44,21 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	int i = 0;
 	int j = 0;
 
+	//for (int i = 0; i < nbrOfCols * nbrOfRows; i++) 
+	//{
+	//	for(int x = 0; x < vignetteRows; x++)
+	//	{
+	//		for (int y = 0; y < vignetteCols; y++) 
+	//		{
+	//			imageCut[i].push_back(im(x + i % nbrOfRows, y + i % nbrOfCols));
+	//		}
+	//	}
+	//}
+
 	for (int x = 0; x < im.getHeight(); x++)
 	{
 		i = j * nbrOfRows;
-
+	
 		for (int y = 0; y < im.getWidth(); y++)
 		{
 			imageCut[i].push_back(im(x, y));
@@ -56,7 +67,7 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 				i++;
 			}
 		}
-
+	
 		if ( (x + 1) % vignetteRows == 0 && x != 0)
 		{
 			j++;
@@ -125,12 +136,14 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	int min = 15000000;
 	int diff = 0;
 	int indexImageData = 0;
+	int nbOfComparisaon = 0;
 
 	for (int i = 0; i < nbrOfCols * nbrOfRows; i++)
 	{
 		for (int j = 0; j < database.size(); j++)
 		{
 			diff = diffHisto(histoVignette[i], histogramSet[j]);
+			nbOfComparisaon++;
 			if (diff < min)
 			{
 				min = diff;
@@ -140,6 +153,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 		result[i].setPixels(database[indexImageData].getPixels());
 	}
 	std::cout << u8"Images similaires trouvées !" << "\n";
+	std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparisaon << "\n";
 
 	return result;
 }
