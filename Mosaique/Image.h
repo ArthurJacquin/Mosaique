@@ -40,6 +40,7 @@ public:
 	
 	//Transformation functions
 	void convert(ImageType type);
+	void toGrayScale();
 
 	//Getters
 	bool getStateLoad() const { return successfullLoad; }
