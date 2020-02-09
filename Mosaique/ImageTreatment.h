@@ -108,7 +108,7 @@ void resizeSet(vector<Image>& images, int w, int h)
 {
 	for (int i = 0; i < images.size(); ++i)
 	{
-		cropCentered(images[i], w, h);
+		resizeCrop(images[i], w, h);
 	}	 
 }
 

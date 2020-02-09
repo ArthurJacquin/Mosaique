@@ -23,6 +23,9 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
+	cropCentered(baseImage, 200, 200);
+	baseImage.save("test.jpg", baseImage.getBaseFormat());
+
 	int nbRow = 0;
 	int nbCol = 0;
 
@@ -41,9 +44,6 @@ int main()
 		if (nbCol == 0 || nbCol > baseImage.getWidth())
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
 	}
-
-	cropCentered(baseImage, 200, 200);
-	baseImage.save("test.jpg", baseImage.getBaseFormat());
 
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, nbRow, nbCol);

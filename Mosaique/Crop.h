@@ -1,7 +1,7 @@
 #pragma once
 #include "Image.h"
 
-void resizeCrop(Image& image, int factor)
+/*void resizeCrop(Image& image, int factor)
 {
 	int dimensionX = int(image.getWidth() / factor);
 	int dimensionY = int(image.getHeight() / factor);
@@ -16,15 +16,32 @@ void resizeCrop(Image& image, int factor)
 
 	image.setHeight(dimensionY);
 	image.setWidth(dimensionX);
+}*/
+
+void resizeCrop(Image& im, int height, int width) 
+{
+	int dimensionX = int(im.getWidth() / height);
+	int dimensionY = int(im.getHeight() / width);
+
+	for (int x = 0; x < dimensionY; x++)
+	{
+		for (int y = 0; y < dimensionX; y++)
+		{
+			im(x, y) = im(int(x * height), int(y * width));
+		}
+	}
+
+	im.setHeight(dimensionY);
+	im.setWidth(dimensionX);
 }
 
 //get the top left corner of image
-void cropTopLeft(Image &image) 
+void cropTopLeft(Image& image)
 {
 	int width = image.getWidth() / 2;
 	int height = image.getHeight() / 2;
 
-	for (int i = 0; i < height; i++) 
+	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
