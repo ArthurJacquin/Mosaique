@@ -44,17 +44,6 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	int i = 0;
 	int j = 0;
 
-	//for (int i = 0; i < nbrOfCols * nbrOfRows; i++) 
-	//{
-	//	for(int x = 0; x < vignetteRows; x++)
-	//	{
-	//		for (int y = 0; y < vignetteCols; y++) 
-	//		{
-	//			imageCut[i].push_back(im(x + i % nbrOfRows, y + i % nbrOfCols));
-	//		}
-	//	}
-	//}
-
 	for (int x = 0; x < im.getHeight(); x++)
 	{
 		i = j * nbrOfRows;
@@ -83,14 +72,13 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 	if (vignettesIm.size() == 0)
 		std::cout << u8"Tableau de vignettes (images) vide !" << "\n";
 	
-	for (int i = 0; i < vignettesIm.size(); i++) 
+	for (int i = 0; i < vignettesIm.size(); i++)
 	{
-		for (int x = 0; x < image.getHeight(); x++)
+		for (int x = 0; x < image.getHeight() / nbRow; x++)
 		{
-			for (int y = 0; y < image.getWidth(); y++)
+			for (int y = 0; y < image.getWidth() / nbCol; y++)
 			{
-				//TODO : debug cet algo de merde
-				image(x, y) = vignettesIm[i](x * i % nbCol, y * i % nbRow);
+				image(x * i % nbCol, y * i % nbRow) = vignettesIm[i](x, y);
 			}
 		}
 	}

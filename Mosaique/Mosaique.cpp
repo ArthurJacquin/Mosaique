@@ -11,18 +11,6 @@ int main()
 {
 	SetConsoleOutputCP(CP_UTF8);
 
-	/*Image testImage;
-	string imagePathTest;
-	while (testImage.getStateLoad() != true)
-	{
-		cout << u8"Chemin de l'image à tester ?" << "\n";
-		cin >> imagePathTest;
-		cout << u8"Chargement de l'image test" << "\r";
-		testImage.loadFromFile(imagePathTest.c_str());
-	}
-	cout << u8"Pixel à l'origine : " << testImage(0, 0) << "\n\n";
-	*/
-
 	Image baseImage;
 
 	string imagePath;
