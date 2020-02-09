@@ -12,8 +12,9 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 
 	Image baseImage;
-
 	string imagePath;
+
+	//Choix de l'image de base
 	while (baseImage.getStateLoad() != true)
 	{
 		cout << u8"Chemin de l'image à modifier ?" << "\n";
@@ -23,9 +24,7 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
-	cropCentered(baseImage, 200, 200);
-	baseImage.save("test.jpg", baseImage.getBaseFormat());
-
+	//Choix du nombre de vignettes
 	int nbRow = 0;
 	int nbCol = 0;
 
@@ -45,12 +44,22 @@ int main()
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
 	}
 
+	//Redimensionnement en fonction du nombre de vignettes
+	int size = max(baseImage.getWidth(), baseImage.getHeight());
+	int widthVignettes = size / nbCol;
+	int heightVignettes = size / nbRow;
+
+	//Dimension finale de l'image de base
+	int width = size - (size % (nbCol * widthVignettes));
+	int height = size - (size % (nbRow * heightVignettes));
+
+	//Crop
+	cropCentered(baseImage, width, height);
+	baseImage.save("test.jpg", baseImage.getBaseFormat());
+
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, nbRow, nbCol);
 
-	int widthVignettes = baseImage.getWidth() / nbCol;
-	int heightVignettes = baseImage.getHeight() / nbRow;
-	
 	string databasePath;
 	int nbOfFiles = 0;
 	vector<Image> database;

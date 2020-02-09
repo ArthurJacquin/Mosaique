@@ -53,11 +53,11 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 	int i = 0;
 	int j = 0;
 
-	for (int x = 0; x < im.getHeight(); x++)
+	for (int x = 0; x < im.getHeight() - 1; x++)
 	{
 		i = j * nbrOfRows;
-	
-		for (int y = 0; y < im.getWidth(); y++)
+		cout << i << ", " << j << ", " << x << ", " << "\n";
+		for (int y = 0; y < im.getWidth() - 1; y++)
 		{
 			imageCut[i].push_back(im(x, y));
 			if ((y + 1) % vignetteCols == 0 && y!= 0)
@@ -70,6 +70,7 @@ vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 		{
 			j++;
 		}
+		
 	}
 
 	return imageCut;
@@ -158,6 +159,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 			}
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
+		cout << i << "\r";
 	}
 	std::cout << u8"Images similaires trouvées !" << "\n";
 	std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparison << "\n";
