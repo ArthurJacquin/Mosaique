@@ -10,14 +10,22 @@
 
 namespace fs = std::experimental::filesystem;
 
-void loadRegistre(vector<Image>& images, string folderPath)
+int checkRegistre(string path) 
 {
-	auto directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
-	float imageTreated = 0;
-	float nbOfFiles = 0;
+	int nbOfFiles = 0;
+
+	auto directory = std::experimental::filesystem::directory_iterator(path.c_str());
 
 	for (const auto& entry : directory)
 		nbOfFiles++;
+
+	return nbOfFiles;
+}
+
+void loadRegistre(vector<Image>& images, string folderPath, int nbOfFiles)
+{
+	auto directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
+	float imageTreated = 0;
 
 	directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
 
