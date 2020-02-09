@@ -29,20 +29,34 @@ int main()
 	int nbRow = 0;
 	int nbCol = 0;
 
-	while (nbRow == 0 || nbRow > baseImage.getHeight()) 
+	while (nbRow <= 0) 
 	{
 		cout << u8"Choissisez un nombre de lignes" << "\n";
 		cin >> nbRow;
-		if (nbRow == 0 || nbRow > baseImage.getHeight())
+		if (nbRow == 0)
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
 	}
 
-	while (nbCol == 0 || nbCol > baseImage.getWidth())
+	if (nbRow > baseImage.getHeight()) 
+	{
+		nbRow = baseImage.getHeight();
+		std::cout << u8"Le nombre de lignes ne peut être supérieur à la hauteur de l'image" << "\n";
+		std::cout << u8"Valeur resteinte à : " << nbRow << "\n";
+	}
+
+	while (nbCol <= 0)
 	{
 		cout << u8"Choissisez un nombre de colonnes" << "\n";
 		cin >> nbCol;
-		if (nbCol == 0 || nbCol > baseImage.getWidth())
+		if (nbCol == 0)
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
+	}
+
+	if (nbCol > baseImage.getWidth())
+	{
+		nbCol = baseImage.getWidth();
+		std::cout << u8"Le nombre de colonnes ne peut être supérieur à la largeur de l'image" << "\n";
+		std::cout << u8"Valeur resteinte à : " << nbCol << "\n";
 	}
 
 	vector<vector<Color>> vignettes;
