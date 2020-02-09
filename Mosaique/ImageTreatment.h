@@ -81,7 +81,7 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 		{
 			for (int y = 0; y < widthVignettes; y++)
 			{
-				image(x + i * heightVignettes, y + i * widthVignettes) = vignettesIm[i](x, y);
+				image(x + (i % nbRow) * heightVignettes, y + (i % nbCol) * widthVignettes) = vignettesIm[i](x, y);
 			}
 		}
 	}
