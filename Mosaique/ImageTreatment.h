@@ -122,7 +122,6 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	result.resize(vignettes.size());
 
 	vector<Image> vignetteIm;
-	//vignetteIm.resize(vignettes.size());
 	vector<vector<vector<int>>> histoVignette;
 	for (int i = 0; i < vignettes.size(); i++) 
 	{
@@ -130,7 +129,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 		vignetteIm[i].setPixels(vignettes[i]);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
 	}
-	std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";
+	//std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";
 
 	int nbOfComparisaon = 0;
 
@@ -150,9 +149,9 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 			}
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
-		std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparisaon << "\n";
+		//std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparisaon << "\n";
 	}
-	std::cout << u8"Images similaires trouvées !" << "\n";
+	//std::cout << u8"Images similaires trouvées !" << "\n";
 
 	return result;
 }
