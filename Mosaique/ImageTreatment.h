@@ -158,6 +158,10 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 			}
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
+
+		int pourcentage = 100 * (i / (nbrOfCols * nbrOfRows));
+		std::cout << "Recherche d'images similaires : " << pourcentage << "%" << '\r';
+
 	}
 	std::cout << u8"Images similaires trouvées !" << "\n";
 	std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparison << "\n";
