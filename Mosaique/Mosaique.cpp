@@ -12,9 +12,8 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 
 	Image baseImage;
-	string imagePath;
 
-	//Choix de l'image de base
+	string imagePath;
 	while (baseImage.getStateLoad() != true)
 	{
 		cout << u8"Chemin de l'image à modifier ?" << "\n";
@@ -24,42 +23,48 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
-	//Choix du nombre de vignettes
+	cropCentered(baseImage, 200, 200);
+	baseImage.save("test.jpg", baseImage.getBaseFormat());
+
 	int nbRow = 0;
 	int nbCol = 0;
 
-	while (nbRow == 0 || nbRow > baseImage.getHeight()) 
+	while (nbRow <= 0) 
 	{
 		cout << u8"Choissisez un nombre de lignes" << "\n";
 		cin >> nbRow;
-		if (nbRow == 0 || nbRow > baseImage.getHeight())
+		if (nbRow == 0)
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
 	}
 
-	while (nbCol == 0 || nbCol > baseImage.getWidth())
+	if (nbRow > baseImage.getHeight()) 
+	{
+		nbRow = baseImage.getHeight();
+		std::cout << u8"Le nombre de lignes ne peut être supérieur à la hauteur de l'image" << "\n";
+		std::cout << u8"Valeur resteinte à : " << nbRow << "\n";
+	}
+
+	while (nbCol <= 0)
 	{
 		cout << u8"Choissisez un nombre de colonnes" << "\n";
 		cin >> nbCol;
-		if (nbCol == 0 || nbCol > baseImage.getWidth())
+		if (nbCol == 0)
 			std::cout << u8"Ceci n'est pas un nombre valide de lignes" << "\n";
 	}
 
-	//Redimensionnement en fonction du nombre de vignettes
-	int size = max(baseImage.getWidth(), baseImage.getHeight());
-	int widthVignettes = size / nbCol;
-	int heightVignettes = size / nbRow;
-
-	//Dimension finale de l'image de base
-	int width = size - (size % (nbCol * widthVignettes));
-	int height = size - (size % (nbRow * heightVignettes));
-
-	//Crop
-	cropCentered(baseImage, width, height);
-	baseImage.save("test.jpg", baseImage.getBaseFormat());
+	if (nbCol > baseImage.getWidth())
+	{
+		nbCol = baseImage.getWidth();
+		std::cout << u8"Le nombre de colonnes ne peut être supérieur à la largeur de l'image" << "\n";
+		std::cout << u8"Valeur resteinte à : " << nbCol << "\n";
+	}
 
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, nbRow, nbCol);
 
+	int widthVignettes = baseImage.getWidth() / nbCol;
+	int heightVignettes = baseImage.getHeight() / nbRow;
+	
 	string databasePath;
 	int nbOfFiles = 0;
 	vector<Image> database;
