@@ -97,11 +97,13 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 					image(x + currRow * heightVignettes, y + currCol * widthVignettes) = vignettesIm[currVignette](x, y);
 				}
 			}
+			int pourcentage = (int)(100 * (currVignette / (nbRow * nbCol)));
+			std::cout << "Reconstitution de l'image..." << pourcentage << "%" << '\r';
 			currVignette += 1;
 		}
 	}
 
-	std::cout << u8"Image réassemblée !" << "\n";
+	std::cout << u8"Image reconstituée avec succès !" << "\n";
 }
 
 void resizeSet(vector<Image>& images, int w, int h)
@@ -137,7 +139,6 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 		vignetteIm[i].setPixels(vignettes[i]);
 		histoVignette.push_back(calculateHistogram(vignetteIm[i]));
 	}
-	std::cout << u8"Tableau de vignettes (images) réassemblées et histogrammes calculés!" << "\n";
 
 	int nbOfComparison = 0;
 
@@ -158,8 +159,8 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 		}
 		result[i].setPixels(database[indexImageData].getPixels());
 
-		int pourcentage = 100 * (i / (nbrOfCols * nbrOfRows));
-		std::cout << "Recherche d'images similaires : " << pourcentage << "%" << '\r';
+		int pourcentage = (int)(100 * (i / (nbrOfCols * nbrOfRows)));
+		std::cout << "Recherche d'images : " << pourcentage << "%" << '\r';
 
 	}
 	std::cout << u8"Images similaires trouvées !" << "\n";
