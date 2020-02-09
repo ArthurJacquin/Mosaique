@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <experimental/filesystem>
+#include <math.h>
 #include "Image.h"
 #include "Crop.h"
 #include "Similirate.h"
@@ -154,4 +155,43 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	std::cout << u8"Nombre d'appel à diffHisto : " << nbOfComparison << "\n";
 
 	return result;
+}
+
+Image sobel(Image im) 
+{
+	im.toGrayScale();
+	Image res = im;
+	int radius = 1;
+
+	int tabGx[] = { -1, 0, 1, -2, 0, 2, -1, 0, 1};
+	int tabGy[] = { -1, -2, -1, 0, 0, 0, 1, 2, 1};
+
+	for (int i = 0; i < im.getHeight(); ++i)
+	{
+		for (int j = 0; j < im.getWidth(); ++j)
+		{
+			int Gx = 0;
+			int Gy = 0;
+			int id = 0;
+
+			for (int k = i - radius; k < i + radius + 1; ++k)
+			{
+				for (int l = j - radius; l < j + radius + 1; ++l)
+				{
+					if (0 <= k && k < im.getHeight() && 0 <= l && l < im.getWidth())
+					{
+						Gx += im(k, l).x * tabGx[id];
+						Gy += im(k, l).x * tabGy[id];
+						id++;
+					}
+				}
+			}
+
+			int G = sqrt(pow(Gx, 2) + pow(Gy, 2));
+			Color newColor((int)G, (int)G, (int)G);
+			res(i, j) = newColor;
+		}
+	}
+
+	return res;
 }

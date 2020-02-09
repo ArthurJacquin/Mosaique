@@ -261,6 +261,18 @@ void Image::convert(ImageType type)
 	}
 }
 
+void Image::toGrayScale()
+{
+	for (int i = 0; i < m_height; ++i)
+	{
+		for (int j = 0; j <m_width; ++j)
+		{
+			int color = (m_pixels[i][j].x + m_pixels[i][j].y + m_pixels[i][j].z) / 3;
+			m_pixels[i][j] = Color(color, color, color);
+		}
+	}
+}
+
 void Image::setHeight(int height) 
 { 
 	m_height = height; 
