@@ -99,7 +99,6 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 			}
 			currVignette += 1;
 		}
-		
 	}
 
 	std::cout << u8"Image réassemblée !" << "\n";

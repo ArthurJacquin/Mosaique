@@ -3,19 +3,19 @@
 
 void resizeCrop(Image& im, int height, int width) 
 {
-	int dimensionX = int(im.getWidth() / height);
-	int dimensionY = int(im.getHeight() / width);
+	int facteurX = int(im.getHeight() / height);
+	int facteurY = int(im.getWidth() / width);
 
-	for (int x = 0; x < dimensionY; x++)
+	for (int x = 0; x < height; x++)
 	{
-		for (int y = 0; y < dimensionX; y++)
+		for (int y = 0; y < width; y++)
 		{
-			im(x, y) = im(int(x * height), int(y * width));
+			im(x, y) = im(int(x * facteurX), int(y * facteurY));
 		}
 	}
 
-	im.setHeight(dimensionY);
-	im.setWidth(dimensionX);
+	im.setHeight(height);
+	im.setWidth(width);
 }
 
 //get the top left corner of image
