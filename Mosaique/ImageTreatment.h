@@ -75,15 +75,22 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 	int heightVignettes = image.getHeight() / nbRow;
 	int widthVignettes = image.getWidth() / nbCol;
 
-	for (int i = 0; i < vignettesIm.size(); i++)
+	int currVignette = 0;
+
+	for (int currRow = 0; currRow < nbRow; currRow++)
 	{
-		for (int x = 0; x < heightVignettes; x++)
+		for (int currCol = 0; currCol < nbCol; currCol++) 
 		{
-			for (int y = 0; y < widthVignettes; y++)
+			for (int x = 0; x < heightVignettes; x++)
 			{
-				image(x + (i % nbRow) * heightVignettes, y + (i % nbCol) * widthVignettes) = vignettesIm[i](x, y);
+				for (int y = 0; y < widthVignettes; y++)
+				{
+					image(x + currRow * heightVignettes, y + currCol * widthVignettes) = vignettesIm[currVignette](x, y);
+				}
 			}
+			currVignette += 1;
 		}
+		
 	}
 
 	std::cout << u8"Image réassemblée !" << "\n";
