@@ -23,9 +23,6 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
-	cropCentered(baseImage, 200, 200);
-	baseImage.save("test.jpg", baseImage.getBaseFormat());
-
 	int nbRow = 0;
 	int nbCol = 0;
 
@@ -59,11 +56,21 @@ int main()
 		std::cout << u8"Valeur resteinte à : " << nbCol << "\n";
 	}
 
+	//Redimensionnement en fonction du nombre de vignettes
+	int size = max(baseImage.getWidth(), baseImage.getHeight());
+	int widthVignettes = size / nbCol;
+	int heightVignettes = size / nbRow;
+
+	//Dimension finale de l'image de base
+	int width = size - (size % (nbCol * widthVignettes));
+	int height = size - (size % (nbRow * heightVignettes));
+
+	//Crop
+	cropCentered(baseImage, width, height);
+	baseImage.save("test.jpg", baseImage.getBaseFormat());
+
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, nbRow, nbCol);
-
-	int widthVignettes = baseImage.getWidth() / nbCol;
-	int heightVignettes = baseImage.getHeight() / nbRow;
 	
 	string databasePath;
 	int nbOfFiles = 0;
