@@ -57,7 +57,7 @@ int main()
 	}
 
 	//Redimensionnement en fonction du nombre de vignettes
-	int size = max(baseImage.getWidth(), baseImage.getHeight());
+	int size = min(baseImage.getWidth(), baseImage.getHeight());
 	int widthVignettes = size / nbCol;
 	int heightVignettes = size / nbRow;
 
@@ -66,7 +66,7 @@ int main()
 	int height = size - (size % (nbRow * heightVignettes));
 
 	//Crop
-	cropCentered(baseImage, width, height);
+	resizeCrop(baseImage, width, height);
 	baseImage.save("test.jpg", baseImage.getBaseFormat());
 
 	vector<vector<Color>> vignettes;

@@ -3,6 +3,10 @@
 
 void resizeCrop(Image& im, int height, int width) 
 {
+	Image res = im;
+	res.setHeight(height);
+	res.setWidth(width);
+
 	int facteurX = int(im.getHeight() / height);
 	int facteurY = int(im.getWidth() / width);
 
@@ -10,7 +14,7 @@ void resizeCrop(Image& im, int height, int width)
 	{
 		for (int y = 0; y < width; y++)
 		{
-			im(x, y) = im(int(x * facteurX), int(y * facteurY));
+			res(x, y) = im(int(x * facteurX), int(y * facteurY));
 		}
 	}
 
