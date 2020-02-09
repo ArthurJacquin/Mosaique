@@ -72,13 +72,16 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 	if (vignettesIm.size() == 0)
 		std::cout << u8"Tableau de vignettes (images) vide !" << "\n";
 	
+	int heightVignettes = image.getHeight() / nbRow;
+	int widthVignettes = image.getWidth() / nbCol;
+
 	for (int i = 0; i < vignettesIm.size(); i++)
 	{
-		for (int x = 0; x < image.getHeight() / nbRow; x++)
+		for (int x = 0; x < heightVignettes; x++)
 		{
-			for (int y = 0; y < image.getWidth() / nbCol; y++)
+			for (int y = 0; y < widthVignettes; y++)
 			{
-				image(x * i % nbCol, y * i % nbRow) = vignettesIm[i](x, y);
+				image(x + i * heightVignettes, y + i * widthVignettes) = vignettesIm[i](x, y);
 			}
 		}
 	}
