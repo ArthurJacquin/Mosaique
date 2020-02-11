@@ -2,6 +2,7 @@
 #include "Image.h"
 #include <iostream>
 
+
 int diffVal(Image im, Image imCompare)
 {
 	int somme = 0;
@@ -84,6 +85,7 @@ int diffValWithMoy(Image im, Image imCompare)
 
 }
 
+//Calcul de l'histo de l'image
 vector<vector<int>> calculateHistogram(Image im)
 {
 	vector<vector<int>> hist;

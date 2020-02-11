@@ -11,6 +11,7 @@
 
 namespace fs = std::experimental::filesystem;
 
+//Vérifie que la base de donnée contient des éléments
 int checkRegistre(string path) 
 {
 	int nbOfFiles = 0;
@@ -23,6 +24,7 @@ int checkRegistre(string path)
 	return nbOfFiles;
 }
 
+//Charge la DB
 void loadRegistre(vector<Image>& images, string folderPath, int nbOfFiles)
 {
 	auto directory = std::experimental::filesystem::directory_iterator(folderPath.c_str());
@@ -42,6 +44,7 @@ void loadRegistre(vector<Image>& images, string folderPath, int nbOfFiles)
 	std::cout << u8"Base de données chargée avec succès !" << "\n\n";
 }
 
+//Découpe l'image en vignette
 vector<vector<Color>> cut(Image im, int nbrOfRows, int nbrOfCols)
 {
 	int vignetteRows = int(im.getHeight() / nbrOfRows);
@@ -106,6 +109,7 @@ void reassembleFinaleIm(Image& image, vector<Image> vignettesIm, int nbRow, int 
 	std::cout << u8"Image reconstituée avec succès !" << "\n";
 }
 
+//Redimensionne les images de la DB
 void resizeSet(vector<Image>& images, int w, int h)
 {
 	for (int i = 0; i < images.size(); ++i)
@@ -114,6 +118,7 @@ void resizeSet(vector<Image>& images, int w, int h)
 	}	 
 }
 
+//Calcule les histos de chaque image de la DB
 vector<vector<vector<int>>> histoSet(vector<Image> database)
 {
 	vector<vector<vector<int>>> histo;
@@ -126,6 +131,7 @@ vector<vector<vector<int>>> histoSet(vector<Image> database)
 	return histo;
 }
 
+//Trouve les similarité entre vignette et DB
 vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, vector<Image>& database, vector<vector<vector<int>>> histogramSet, int nbrOfCols, int nbrOfRows)
 {
 	vector<Image> result;
@@ -169,6 +175,7 @@ vector<Image> findSim(vector<vector<Color>>& vignettes, int width, int height, v
 	return result;
 }
 
+//Cacul du gradient
 Image sobel(Image im) 
 {
 	im.toGrayScale();

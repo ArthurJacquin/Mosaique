@@ -12,8 +12,9 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 
 	Image baseImage;
-
 	string imagePath;
+
+	//Choix de l'image à mosaiquer
 	while (baseImage.getStateLoad() != true)
 	{
 		cout << u8"Chemin de l'image à modifier ?" << "\n";
@@ -23,9 +24,11 @@ int main()
 	}
 	cout << u8"Image " << imagePath << u8" chargée avec succès !" << "\n\n";
 
+	//Choix du nombre de vignettes
 	int nbRow = 0;
 	int nbCol = 0;
 
+	//Vérification de la validité des valeurs d'entrée
 	while (nbRow <= 0) 
 	{
 		cout << u8"Choissisez un nombre de lignes" << "\n";
@@ -69,9 +72,11 @@ int main()
 	resizeCrop(baseImage, width, height);
 	baseImage.save("test.jpg", baseImage.getBaseFormat());
 
+	//Découpage de l'image en vignettes
 	vector<vector<Color>> vignettes;
 	vignettes = cut(baseImage, nbRow, nbCol);
 	
+	//Choix de la base de données
 	string databasePath;
 	int nbOfFiles = 0;
 	vector<Image> database;
@@ -84,15 +89,24 @@ int main()
 			std::cout << u8"Ceci n'est pas une base de données valide" << "\n";
 	}
 
+	//Chargement de la base de données
 	loadRegistre(database, databasePath.c_str(), nbOfFiles);
+
+	//Redimensionnement de la DB à la taille des vignettes
 	resizeSet(database, widthVignettes, heightVignettes);
+
+	//Calcul des histos pour chaque vignette
 	vector<vector<vector<int>>> histogramSet;
 	histogramSet = histoSet(database);
 
+	//Recherche de similarité pour chaque vignette de l'image
 	vector<Image> vignettesBase;
 	vignettesBase = findSim(vignettes, widthVignettes, heightVignettes, database, histogramSet, nbCol, nbRow);
+
+	//Reconstitution de l'image finale a partir des vignettes
 	reassembleFinaleIm(baseImage, vignettesBase, nbRow, nbCol);
 
+	//Enregistrement de l'image
 	baseImage.save("save.jpg", baseImage.getBaseFormat());
 	return 0;
 }
